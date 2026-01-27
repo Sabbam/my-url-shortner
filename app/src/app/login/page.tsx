@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
@@ -8,7 +8,7 @@ import { Zap, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import styles from '../auth-refined.module.css';
 
-export default function Login() {
+function LoginForm() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
@@ -134,5 +134,13 @@ export default function Login() {
                 </p>
             </div>
         </div>
+    );
+}
+
+export default function Login() {
+    return (
+        <Suspense fallback={<div className={styles.wrapper}><div className={styles.loading}>Loading...</div></div>}>
+            <LoginForm />
+        </Suspense>
     );
 }
