@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = { "http://localhost:3000", "https://s.myfervera.in" })
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class UrlController {
 
     private final UrlService urlService;
