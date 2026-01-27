@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
 
 import java.net.URI;
+import java.util.Map;
 import java.util.Optional;
 
 @RestController
@@ -23,23 +24,19 @@ public class UrlController {
     @PostMapping("/shorten")
     public ResponseEntity<?> shortenUrl(@RequestBody UrlRequest request) {
         if (request.getUrl() == null || request.getUrl().isBlank()) {
-            return ResponseEntity.badRequest().body("URL is required");
+            return ResponseEntity.badRequest().body(Map.of("error", "URL is required"));
         }
 
         try {
             new URI(request.getUrl()).toURL();
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Invalid URL format");
+            return ResponseEntity.badRequest().body(Map.of("error", "Invalid URL format"));
         }
 
-        try {
-            // In a real app, userId should be extracted from Auth token/session, not
-            // request body!
-            UrlMapping mapping = urlService.shortenUrl(request.getUrl(), request.getCustomAlias(), request.getUserId());
-            return ResponseEntity.ok(new UrlResponse(mapping.getShortCode(), mapping.getOriginalUrl()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        // In a real app, userId should be extracted from Auth token/session, not
+        // request body!
+        UrlMapping mapping = urlService.shortenUrl(request.getUrl(), request.getCustomAlias(), request.getUserId());
+        return ResponseEntity.ok(new UrlResponse(mapping.getShortCode(), mapping.getOriginalUrl()));
     }
 
     @GetMapping("/links")

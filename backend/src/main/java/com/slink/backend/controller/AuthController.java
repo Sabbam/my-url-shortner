@@ -6,6 +6,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api/auth")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -19,32 +21,24 @@ public class AuthController {
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody AuthRequest request, HttpServletRequest servletRequest) {
-        try {
-            // Extract real client IP (considering proxy headers)
-            String ip = servletRequest.getHeader("X-Forwarded-For");
-            if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
-                ip = servletRequest.getRemoteAddr();
-            }
-            // Handle multiple IPs in X-Forwarded-For
-            if (ip != null && ip.contains(",")) {
-                ip = ip.split(",")[0].trim();
-            }
-
-            User user = userService.registerUser(request.getEmail(), request.getPassword(), ip);
-            return ResponseEntity.ok(new AuthResponse(user.getId(), user.getEmail(), user.getPlanType()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        // Extract real client IP (considering proxy headers)
+        String ip = servletRequest.getHeader("X-Forwarded-For");
+        if (ip == null || ip.isEmpty() || "unknown".equalsIgnoreCase(ip)) {
+            ip = servletRequest.getRemoteAddr();
         }
+        // Handle multiple IPs in X-Forwarded-For
+        if (ip != null && ip.contains(",")) {
+            ip = ip.split(",")[0].trim();
+        }
+
+        User user = userService.registerUser(request.getEmail(), request.getPassword(), ip);
+        return ResponseEntity.ok(new AuthResponse(user.getId(), user.getEmail(), user.getPlanType()));
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody AuthRequest request) {
-        try {
-            User user = userService.loginUser(request.getEmail(), request.getPassword());
-            return ResponseEntity.ok(new AuthResponse(user.getId(), user.getEmail(), user.getPlanType()));
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
+        User user = userService.loginUser(request.getEmail(), request.getPassword());
+        return ResponseEntity.ok(new AuthResponse(user.getId(), user.getEmail(), user.getPlanType()));
     }
 
     public static class AuthRequest {
