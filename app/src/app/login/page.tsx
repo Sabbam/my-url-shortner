@@ -67,11 +67,17 @@ function LoginForm() {
         toast.promise(loginPromise(), {
             loading: 'Verifying credentials...',
             success: 'Welcome back!',
-            error: (err) => err.message,
+            error: (err) => {
+                console.error('Login Fetch Error:', err);
+                if (err.message === 'Failed to fetch') {
+                    return 'Network Error: Backend is down or unreachable. Check Railway logs.';
+                }
+                return err.message;
+            },
         }).then(() => {
             router.push('/dashboard');
         }).catch((err) => {
-            setLocalError(err.message);
+            setLocalError(err.message === 'Failed to fetch' ? `Network Error: Could not connect to the backend at ${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}. Ensure the backend is running and CORS is enabled.` : err.message);
         }).finally(() => {
             setLoading(false);
         });
