@@ -1,0 +1,190 @@
+.wrapper {
+    min-height: 100vh;
+    padding: 8rem 0 6rem;
+    background: var(--background);
+    position: relative;
+    overflow: hidden;
+}
+
+.glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 40%;
+    background: radial-gradient(circle, rgba(96, 165, 250, 0.1) 0%, transparent 70%);
+    filter: blur(100px);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.badge {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid var(--surface-border);
+    border-radius: 999px;
+    color: var(--primary-light);
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    margin-bottom: 1.5rem;
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 1.125rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: 3rem 2rem;
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.card:hover {
+    transform: translateY(-8px);
+    background: rgba(15, 23, 42, 0.6);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.cardHighlight {
+    border-color: var(--primary);
+    box-shadow: 0 0 40px -10px rgba(37, 99, 235, 0.2);
+}
+
+.popularBadge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 0.25rem 1rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.planName {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: #fff;
+}
+
+.priceDisplay {
+    display: flex;
+    align-items: baseline;
+    gap: 0.25rem;
+    margin-bottom: 2rem;
+}
+
+.currency {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.price {
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: #fff;
+    font-family: var(--font-heading);
+}
+
+.period {
+    font-size: 1rem;
+    color: var(--muted);
+}
+
+.features {
+    list-style: none;
+    margin-bottom: 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: #e2e8f0;
+}
+
+.icon {
+    color: var(--primary-light);
+    flex-shrink: 0;
+}
+
+.btn {
+    width: 100%;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-weight: 700;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.btnGray {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
+}
+
+.btnGray:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.btnLight {
+    background: #fff;
+    color: #000;
+}
+
+.btnLight:hover {
+    background: #f1f5f9;
+}
+
+.btnDark {
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid var(--surface-border);
+    color: #fff;
+}

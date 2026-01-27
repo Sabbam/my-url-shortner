@@ -5,7 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Zap } from 'lucide-react';
-import styles from '../auth-split.module.css';
+import styles from '../auth-refined.module.css';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -60,67 +60,53 @@ export default function Login() {
     };
 
     return (
-        <div className={styles.container}>
-            {/* Visual Side (Marketing) */}
-            <div className={styles.visualSide}>
-                <div className={styles.auroraBlob}></div>
-                <div className={styles.visualContent}>
-                    <h1 className={styles.visualTitle}>Analyze your links in real-time.</h1>
-                    <p className={styles.visualText}>
-                        Join 10,000+ teams who use My URL Shortner to track, manage, and optimize their digital touchpoints.
-                    </p>
+        <div className={styles.wrapper}>
+            <div className={styles.glow} />
+
+            <div className={styles.card}>
+                <div className={styles.header}>
+                    <div className={styles.logo}>
+                        <Zap size={28} fill="currentColor" />
+                    </div>
+                    <h1 className={styles.title}>Welcome Back</h1>
+                    <p className={styles.subtitle}>Sign in to manage your premium links</p>
                 </div>
-            </div>
 
-            {/* Form Side */}
-            <div className={styles.formSide}>
-                <div className={styles.formWrapper}>
-                    <Link href="/" className={styles.logoLink}>
-                        <Zap size={24} fill="#2563eb" color="#2563eb" />
-                        My URL Shortner
-                    </Link>
+                {localError && <div className={styles.error}>{localError}</div>}
 
-                    <div className={styles.header}>
-                        <h2 className={styles.title}>Welcome back</h2>
-                        <p className={styles.subtitle}>Enter your details to sign in to your account.</p>
+                <form onSubmit={handleSubmit} className={styles.form}>
+                    <div className={styles.inputGroup}>
+                        <label className={styles.label}>Email Address</label>
+                        <input
+                            type="email"
+                            placeholder="you@example.com"
+                            className={styles.inputField}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            required
+                        />
                     </div>
 
-                    {localError && <div className={styles.error}>{localError}</div>}
+                    <div className={styles.inputGroup}>
+                        <label className={styles.label}>Password</label>
+                        <input
+                            type="password"
+                            placeholder="••••••••"
+                            className={styles.inputField}
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
 
-                    <form onSubmit={handleSubmit} className={styles.form}>
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Email Address</label>
-                            <input
-                                type="email"
-                                placeholder="name@company.com"
-                                className={styles.input}
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                required
-                            />
-                        </div>
+                    <button type="submit" className={styles.button} disabled={loading}>
+                        {loading ? 'Processing...' : 'Sign In to Dashboard'}
+                    </button>
+                </form>
 
-                        <div className={styles.inputGroup}>
-                            <label className={styles.label}>Password</label>
-                            <input
-                                type="password"
-                                placeholder="••••••••"
-                                className={styles.input}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                required
-                            />
-                        </div>
-
-                        <button type="submit" className={styles.submitButton} disabled={loading}>
-                            {loading ? 'Signing in...' : 'Sign In'}
-                        </button>
-                    </form>
-
-                    <p className={styles.footerText}>
-                        Don't have an account? <Link href="/register" className={styles.link}>Sign up for free</Link>
-                    </p>
-                </div>
+                <p className={styles.footer}>
+                    New to SLink? <Link href="/register" className={styles.footerLink}>Create free account</Link>
+                </p>
             </div>
         </div>
     );

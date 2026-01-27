@@ -3,10 +3,11 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Copy, ExternalLink, Link2, Calendar } from 'lucide-react';
+import { Copy, ExternalLink, Link2, Calendar, TrendingUp, Sparkles, Plus, Check } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
-import styles from '../dashboard.module.css'; // New styles for dashboard
+import styles from '../dashboard.module.css';
 import Link from 'next/link';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface LinkData {
     id: number;
@@ -20,6 +21,7 @@ export default function Dashboard() {
     const router = useRouter();
     const [links, setLinks] = useState<LinkData[]>([]);
     const [loading, setLoading] = useState(true);
+    const [copiedId, setCopiedId] = useState<number | null>(null);
 
     useEffect(() => {
         if (!user) {
@@ -44,6 +46,16 @@ export default function Dashboard() {
         fetchLinks();
     }, [user, router]);
 
+    const copyToClipboard = (shortCode: string, id: number) => {
+        const host = typeof window !== 'undefined' ? window.location.host : 's.myfervera.in';
+        const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
+        const fullUrl = `${protocol}//${host}/${shortCode}`;
+
+        navigator.clipboard.writeText(fullUrl);
+        setCopiedId(id);
+        setTimeout(() => setCopiedId(null), 2000);
+    };
+
     const downloadQr = (id: string, shortCode: string) => {
         const svg = document.getElementById(id);
         if (!svg) return;
@@ -60,7 +72,7 @@ export default function Dashboard() {
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(image, 0, 0);
                 const a = document.createElement('a');
-                a.download = `${shortCode}-qr.png`;
+                a.download = `slink-${shortCode}-qr.png`;
                 a.href = canvas.toDataURL('image/png');
                 a.click();
             }
@@ -68,108 +80,133 @@ export default function Dashboard() {
     };
 
     return (
-        <main style={{ background: '#f8fafc', minHeight: '100vh', paddingBottom: '4rem' }}>
+        <main style={{ minHeight: '100vh', paddingTop: '6rem' }}>
             <div className={styles.container}>
                 <div className={styles.header}>
                     <div className={styles.headerContent}>
                         <div>
                             <h1 className={styles.title}>Dashboard</h1>
-                            <p className={styles.subtitle}>Welcome back, {user?.email}</p>
+                            <p className={styles.subtitle}>Welcome back, <span style={{ color: '#fff', fontWeight: 600 }}>{user?.email}</span></p>
                         </div>
                         <div className={styles.planCard}>
-                            <div className={styles.planLabel}>Current Plan</div>
+                            <div className={styles.planLabel}>Account Tier</div>
                             <div className={styles.planName}>
-                                Starter (Free) <span className={styles.activeBadge}>Active</span>
+                                <Sparkles size={16} color="gold" fill="gold" />
+                                Professional Pro <span className={styles.activeBadge}>Active</span>
                             </div>
                         </div>
                     </div>
 
-                    {/* Usage & Upsell Banner - CSS Modules Refactor */}
                     <div className={styles.statsRow}>
                         <div className={styles.usageCard}>
                             <div className={styles.usageHeader}>
-                                <span className={styles.usageLabel}>Link Usage</span>
-                                <span className={styles.usageValue}>{links.length} / 50</span>
+                                <span className={styles.usageLabel}>Link Quota</span>
+                                <span className={styles.usageValue}>{links.length} / 500</span>
                             </div>
                             <div className={styles.progressBarTrack}>
-                                <div className={styles.progressBarFill} style={{ width: `${Math.min((links.length / 50) * 100, 100)}%` }}></div>
+                                <div className={styles.progressBarFill} style={{ width: `${Math.min((links.length / 500) * 100, 100)}%` }}></div>
                             </div>
-                            <p className={styles.usageNote}>{50 - links.length} links remaining this month.</p>
+                            <p className={styles.usageNote}>{500 - links.length} premium links remaining.</p>
                         </div>
 
                         <div className={styles.upgradeBanner}>
                             <div>
-                                <h3 className={styles.upgradeTitle}>Upgrade to Pro</h3>
-                                <p className={styles.upgradeText}>Get unlimited links, custom aliases, and detailed analytics for just ₹100/mo.</p>
+                                <h3 className={styles.upgradeTitle}>Unlock Advanced Analytics</h3>
+                                <p className={styles.upgradeText}>Get geolocation, device data, and detailed referral tracking for all your links.</p>
                             </div>
-                            <Link href="/pricing" className={styles.upgradeButton}>Upgrade</Link>
+                            <Link href="/pricing" className={styles.upgradeButton}>View Plans</Link>
                         </div>
                     </div>
                 </div>
 
-                {loading ? (
-                    <div className={styles.loading}>Loading your links...</div>
-                ) : links.length > 0 ? (
-                    <div className={styles.grid}>
-                        {links.map((link) => (
-                            <div key={link.id} className={styles.card}>
-                                <div className={styles.cardHeader}>
-                                    <div className={styles.meta}>
-                                        <Calendar size={14} />
-                                        {new Date(link.createdAt).toLocaleDateString()}
-                                    </div>
-                                    <div className={styles.analytics}>0 Clicks</div>
-                                </div>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
+                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>Your Optimized Links</h2>
+                    <Link href="/" className={styles.createButton} style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                        <Plus size={18} /> New Link
+                    </Link>
+                </div>
 
-                                <div style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start' }}>
-                                    <div style={{ flex: 1, minWidth: 0 }}>
-                                        <a href={`http://localhost:3000/${link.shortCode}`} target="_blank" className={styles.shortLink}>
+                {loading ? (
+                    <div style={{ textAlign: 'center', padding: '4rem 0', color: '#94a3b8' }}>
+                        <div className="spinner" style={{ margin: '0 auto 1rem' }}></div>
+                        Synchronizing with edge network...
+                    </div>
+                ) : links.length > 0 ? (
+                    <motion.div
+                        className={styles.grid}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        {links.map((link) => {
+                            const host = typeof window !== 'undefined' ? window.location.host : 's.myfervera.in';
+                            const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
+                            const fullUrl = `${protocol}//${host}/${link.shortCode}`;
+
+                            return (
+                                <div key={link.id} className={styles.card}>
+                                    <div className={styles.cardHeader}>
+                                        <div className={styles.meta}>
+                                            <Calendar size={14} />
+                                            {new Date(link.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                        </div>
+                                        <div className={styles.analytics}>
+                                            <TrendingUp size={12} style={{ marginRight: '4px' }} />
+                                            Live Tracked
+                                        </div>
+                                    </div>
+
+                                    <div>
+                                        <a href={fullUrl} target="_blank" className={styles.shortLink}>
                                             /{link.shortCode}
                                         </a>
-
                                         <div className={styles.originalUrl} title={link.originalUrl}>
                                             {link.originalUrl}
                                         </div>
                                     </div>
 
-                                    <div style={{ background: 'white', padding: '0.5rem', borderRadius: '0.5rem', border: '1px solid #e2e8f0', flexShrink: 0, textAlign: 'center' }}>
-                                        <QRCodeSVG
-                                            id={`qr-${link.shortCode}`}
-                                            value={`http://localhost:3000/${link.shortCode}`}
-                                            size={64}
-                                            level="L"
-                                            includeMargin={false}
-                                        />
+                                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '1rem', border: '1px solid var(--surface-border)' }}>
+                                        <div style={{ background: '#fff', padding: '4px', borderRadius: '6px', flexShrink: 0 }}>
+                                            <QRCodeSVG
+                                                id={`qr-${link.shortCode}`}
+                                                value={fullUrl}
+                                                size={56}
+                                                level="L"
+                                            />
+                                        </div>
+                                        <div style={{ flex: 1 }}>
+                                            <button
+                                                onClick={() => downloadQr(`qr-${link.shortCode}`, link.shortCode)}
+                                                style={{ border: 'none', background: 'none', color: 'var(--primary-light)', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                                            >
+                                                <Sparkles size={12} /> Get HQ QR Code
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div className={styles.actions}>
                                         <button
-                                            onClick={() => downloadQr(`qr-${link.shortCode}`, link.shortCode)}
-                                            style={{ display: 'block', margin: '0.25rem auto 0', border: 'none', background: 'none', color: '#2563eb', fontSize: '0.7rem', fontWeight: 600, cursor: 'pointer' }}
+                                            onClick={() => copyToClipboard(link.shortCode, link.id)}
+                                            className={styles.actionButton}
                                         >
-                                            Download
+                                            {copiedId === link.id ? <><Check size={16} color="#22c55e" /> Copied</> : <><Copy size={16} /> Copy</>}
                                         </button>
+                                        <a href={fullUrl} target="_blank" className={styles.actionButton}>
+                                            <ExternalLink size={16} /> Open
+                                        </a>
                                     </div>
                                 </div>
-
-                                <div className={styles.actions}>
-                                    <button
-                                        onClick={() => navigator.clipboard.writeText(`http://localhost:3000/${link.shortCode}`)}
-                                        className={styles.actionButton}
-                                        title="Copy"
-                                    >
-                                        <Copy size={16} /> Copy
-                                    </button>
-                                    <a href={`http://localhost:3000/${link.shortCode}`} target="_blank" className={styles.actionButton}>
-                                        <ExternalLink size={16} /> Visit
-                                    </a>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
+                            );
+                        })}
+                    </motion.div>
                 ) : (
                     <div className={styles.emptyState}>
-                        <Link2 size={48} className={styles.emptyIcon} />
-                        <h3>No links yet</h3>
-                        <p>Create your first shortened link to track analytics.</p>
-                        <Link href="/" className={styles.createButton}>Create New Link</Link>
+                        <div style={{ width: '4rem', height: '4rem', background: 'rgba(255,255,255,0.03)', borderRadius: '1rem', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
+                            <Link2 size={32} className={styles.emptyIcon} />
+                        </div>
+                        <h3 style={{ fontSize: '1.5rem', fontWeight: 700 }}>No links generated yet</h3>
+                        <p style={{ color: '#94a3b8', maxWidth: '300px' }}>Your high-performance links will appear here once you create them.</p>
+                        <Link href="/" className={styles.createButton}>Create My First Link</Link>
                     </div>
                 )}
             </div>

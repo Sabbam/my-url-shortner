@@ -10,11 +10,11 @@ export default function Footer() {
                     {/* Brand Column */}
                     <div className={styles.brandCol}>
                         <Link href="/" className={styles.logo}>
-                            <Zap size={24} fill="#2563eb" color="#2563eb" />
-                            My URL Shortner
+                            <Zap size={24} fill="currentColor" color="hsl(var(--primary-hsl))" />
+                            <span className="text-gradient">SLink</span>
                         </Link>
                         <p className={styles.tagline}>
-                            Making the web more accessible, one short link at a time. Built for modern brands.
+                            Fast, secure, and branded URL shortening for elite performance. Transform your links into powerful assets.
                         </p>
                     </div>
 
@@ -22,8 +22,8 @@ export default function Footer() {
                     <div>
                         <h4 className={styles.colTitle}>Product</h4>
                         <div className={styles.linkList}>
-                            <Link href="/pricing" className={styles.footerLink}>Pricing</Link>
                             <Link href="/features" className={styles.footerLink}>Features</Link>
+                            <Link href="/pricing" className={styles.footerLink}>Pricing</Link>
                             <Link href="/analytics" className={styles.footerLink}>Analytics</Link>
                         </div>
                     </div>
@@ -31,24 +31,25 @@ export default function Footer() {
                     <div>
                         <h4 className={styles.colTitle}>Support</h4>
                         <div className={styles.linkList}>
-                            <Link href="/contact" className={styles.footerLink}>Contact</Link>
-                            <Link href="/faq" className={styles.footerLink}>FAQ</Link>
+                            <Link href="/contact" className={styles.footerLink}>Contact Us</Link>
+                            <Link href="/faq" className={styles.footerLink}>Help Center</Link>
                         </div>
                     </div>
 
                     <div>
                         <h4 className={styles.colTitle}>Legal</h4>
                         <div className={styles.linkList}>
-                            <Link href="/privacy" className={styles.footerLink}>Privacy</Link>
-                            <Link href="/terms" className={styles.footerLink}>Terms</Link>
+                            <Link href="/privacy" className={styles.footerLink}>Privacy Policy</Link>
+                            <Link href="/terms" className={styles.footerLink}>Terms of Service</Link>
                         </div>
                     </div>
                 </div>
 
                 <div className={styles.bottom}>
-                    <div>&copy; {new Date().getFullYear()} My Ecosystems. All rights reserved.</div>
+                    <div>&copy; {new Date().getFullYear()} SLink Enterprises. All rights reserved.</div>
                     <div style={{ display: 'flex', gap: '1.5rem' }}>
-                        {/* Social icons could go here */}
+                        <Link href="#" className={styles.footerLink}>Twitter</Link>
+                        <Link href="#" className={styles.footerLink}>LinkedIn</Link>
                     </div>
                 </div>
             </div>

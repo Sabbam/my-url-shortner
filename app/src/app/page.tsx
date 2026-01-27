@@ -4,10 +4,9 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useAuth } from '@/context/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Link2, Copy, Check, Zap, BarChart3, QrCode, Lock, ArrowRight, ShieldCheck, Globe } from 'lucide-react';
+import { Link2, Copy, Check, Zap, BarChart3, QrCode, Lock, ArrowRight, ShieldCheck, Globe, Star } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
-import Navbar from '@/components/Navbar'; // Navbar handles auth state visually
-import styles from './home-premium.module.css';
+import styles from './home-ultimate.module.css';
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -17,19 +16,6 @@ export default function Home() {
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState('');
   const { user } = useAuth();
-
-  // Stats animation
-  const [stats, setStats] = useState({ links: 0, clicks: 0 });
-  useEffect(() => {
-    // Simulate growing stats for social proof
-    const interval = setInterval(() => {
-      setStats(prev => ({
-        links: prev.links + Math.floor(Math.random() * 5),
-        clicks: prev.clicks + Math.floor(Math.random() * 50)
-      }));
-    }, 3000);
-    return () => clearInterval(interval);
-  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -51,7 +37,10 @@ export default function Home() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Something went wrong');
 
-      setShortUrl(`${window.location.protocol}//${window.location.host}/${data.code}`);
+      // Check if domain is custom or fallback to current host
+      const host = typeof window !== 'undefined' ? window.location.host : 's.myfervera.in';
+      const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
+      setShortUrl(`${protocol}//${host}/${data.code}`);
     } catch (err: any) {
       setError(err.message);
     } finally {
@@ -60,136 +49,128 @@ export default function Home() {
   };
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(shortUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (typeof navigator !== 'undefined') {
+      navigator.clipboard.writeText(shortUrl);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (
     <div className={styles.wrapper}>
-      {/* Background Ambience */}
-      <div className={styles.auroraBackground}>
-        <div className={styles.aurora1}></div>
-        <div className={styles.aurora2}></div>
-      </div>
+      {/* Visual background layers */}
+      <div className={styles.subtleGrid} />
+      <div className={styles.glow} />
 
-      <main className={styles.mainContent}>
+      <main className={styles.container}>
 
         {/* Hero Section */}
         <section className={styles.hero}>
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className={styles.heroTextContainer}
+            className={styles.badge}
           >
-            <div className={styles.badge}>
-              <span className={styles.badgeDot}></span>
-              New: Smart Analytics 2.0
-            </div>
-            <h1 className={styles.headline}>
-              Make every connection <span className={styles.gradientText}>count.</span>
-            </h1>
-            <p className={styles.subheadline}>
-              The URL shortener built for brands that care. Transform long links into powerful marketing assets with one click.
-            </p>
+            <Star size={14} fill="currentColor" />
+            <span>Trusted by 10k+ professional creators & teams</span>
           </motion.div>
 
-          {/* Glassmorphism Input Card */}
-          <motion.div
-            className={styles.glassCard}
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+          <motion.h1
+            className={styles.headline}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <form onSubmit={handleSubmit} className={styles.formContainer}>
-              {/* Main Input Row */}
-              <div className={styles.form}>
-                <div className={styles.inputGroup}>
-                  <div className={styles.urlInputWrapper}>
-                    <Link2 className={styles.inputIcon} size={20} />
-                    <input
-                      type="url"
-                      placeholder="Paste your long link here..."
-                      value={url}
-                      onChange={(e) => setUrl(e.target.value)}
-                      className={styles.mainInput}
-                      required
-                    />
-                  </div>
-                </div>
+            Create links that <span className="text-gradient">convert.</span>
+          </motion.h1>
 
-                <button
-                  type="submit"
-                  disabled={loading}
-                  className={styles.submitBtn}
-                >
-                  {loading ? <div className={styles.spinner} /> : <>Shorten URL <ArrowRight size={18} /></>}
-                </button>
+          <motion.p
+            className={styles.subheadline}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
+          >
+            Stop using long, cluttered URLs. SLink transforms your brand's presence with fast, professional, and trackable links in seconds.
+          </motion.p>
+
+          {/* Main Interaction Card */}
+          <motion.div
+            className={styles.inputCard}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            <form onSubmit={handleSubmit} className={styles.inputForm}>
+              <div className={styles.inputWrapper}>
+                <Link2 className={styles.inputIcon} size={20} />
+                <input
+                  type="url"
+                  placeholder="Insert your long URL here..."
+                  className={styles.inputField}
+                  value={url}
+                  onChange={(e) => setUrl(e.target.value)}
+                  required
+                />
               </div>
 
-              {/* Collapsible Alias Row */}
-              <div style={{ padding: '0 0.5rem' }}>
-                <button type="button" className={styles.aliasToggle} onClick={() => setCustomAlias(prev => prev ? '' : 'alias')}>
-                  {customAlias ? <Check size={14} color="#2563eb" /> : '+'} {customAlias ? 'Custom Alias Active' : 'Add custom alias (optional)'}
-                </button>
-
-                <AnimatePresence>
-                  {customAlias !== '' && (
-                    <motion.div
-                      className={styles.aliasContainer}
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                    >
-                      <input
-                        type="text"
-                        placeholder="e.g. summer-sale-2026"
-                        className={styles.aliasInputBox}
-                        value={customAlias === 'alias' ? '' : customAlias}
-                        onChange={(e) => setCustomAlias(e.target.value)}
-                      />
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+              <div className={styles.inputWrapper}>
+                <Zap className={styles.inputIcon} size={18} />
+                <input
+                  type="text"
+                  placeholder="Custom alias (optional)"
+                  className={styles.inputField}
+                  value={customAlias}
+                  onChange={(e) => setCustomAlias(e.target.value)}
+                />
               </div>
 
-              <AnimatePresence>
-                {error && (
-                  <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} className={styles.errorMessage}>
-                    {error}
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              <button className={styles.submitButton} disabled={loading} type="submit">
+                {loading ? <div className={styles.spinner} /> : <>Shorten <ArrowRight size={18} /></>}
+              </button>
             </form>
           </motion.div>
 
-          {/* Result Modal / Expansion */}
+          {/* Error Message */}
+          <AnimatePresence>
+            {error && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                style={{ color: '#ff4444', marginTop: '1rem', fontSize: '0.9rem', fontWeight: 600 }}
+              >
+                {error}
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Success Result */}
           <AnimatePresence>
             {shortUrl && (
               <motion.div
-                className={styles.resultContainer}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
+                className={styles.resultSection}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
               >
-                <div className={styles.resultLeft}>
-                  <div className={styles.successLabel}>Successfully Shortened</div>
-                  <div className={styles.linkDisplay}>
-                    <a href={shortUrl} target="_blank" className={styles.shortLink}>{shortUrl}</a>
-                    <button onClick={copyToClipboard} className={styles.copyBtn}>
-                      {copied ? <Check size={18} /> : <Copy size={18} />}
-                    </button>
-                  </div>
-                  {!user && (
-                    <div className={styles.upsellNote}>
-                      <Lock size={12} />
-                      <span>Want to edit this link later? <Link href="/register">Create free account</Link></span>
+                <div className={styles.resultCard}>
+                  <div className={styles.resultInfo}>
+                    <span className={styles.resultTitle}>Your link is ready!</span>
+                    <div className={styles.resultLinkWrapper}>
+                      <a href={shortUrl} target="_blank" className={styles.shortenedLink}>{shortUrl}</a>
+                      <button onClick={copyToClipboard} className={styles.actionBtn}>
+                        {copied ? <Check size={20} color="#22c55e" /> : <Copy size={20} />}
+                      </button>
                     </div>
-                  )}
-                </div>
-                <div className={styles.resultRight}>
-                  <div className={styles.qrBg}>
-                    <QRCodeSVG value={shortUrl} size={80} />
+                    {!user && (
+                      <div className={styles.upsellNote}>
+                        <Lock size={12} />
+                        <span>Sign up to track performance and edit this link. <Link href="/register">Register now</Link></span>
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles.qrContainer}>
+                    <QRCodeSVG value={shortUrl} size={100} fgColor="#05070a" />
                   </div>
                 </div>
               </motion.div>
@@ -197,33 +178,22 @@ export default function Home() {
           </AnimatePresence>
         </section>
 
-        {/* Features Bento Grid */}
-        <section className={styles.bentoSection}>
-          <div className={styles.sectionHeader}>
-            <h2>Powerful features for <br />modern marketing teams.</h2>
+        {/* Features Bento */}
+        <section className={styles.featuresGrid}>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}><BarChart3 size={28} /></div>
+            <h3 className={styles.featureTitle}>Advanced Analytics</h3>
+            <p className={styles.featureDesc}>Get deep insights into who is clicking your links, from where, and on what device.</p>
           </div>
-          <div className={styles.bentoGrid}>
-            <div className={`${styles.bentoCard} ${styles.colSpan2}`}>
-              <div className={styles.iconBox}><BarChart3 size={24} /></div>
-              <h3>Real-time Analytics</h3>
-              <p>Track clicks, referrers, and device data instantly. Know your audience.</p>
-              <div className={styles.graphPlaceholder}></div>
-            </div>
-            <div className={styles.bentoCard}>
-              <div className={styles.iconBox}><QrCode size={24} /></div>
-              <h3>Smart QR Codes</h3>
-              <p>Generate branded QR codes that actually get scanned.</p>
-            </div>
-            <div className={styles.bentoCard}>
-              <div className={styles.iconBox}><ShieldCheck size={24} /></div>
-              <h3>Bank-grade Security</h3>
-              <p>Every link is encrypted and protected against malware.</p>
-            </div>
-            <div className={`${styles.bentoCard} ${styles.colSpan2}`}>
-              <div className={styles.iconBox}><Globe size={24} /></div>
-              <h3>Custom Domains</h3>
-              <p>Use your own brand name (link.yourbrand.com) for maximum trust.</p>
-            </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}><Globe size={28} /></div>
+            <h3 className={styles.featureTitle}>Global Edge</h3>
+            <p className={styles.featureDesc}>Ultra-fast redirection powered by an global edge network. No latency, just speed.</p>
+          </div>
+          <div className={styles.featureCard}>
+            <div className={styles.featureIcon}><ShieldCheck size={28} /></div>
+            <h3 className={styles.featureTitle}>Secure & Private</h3>
+            <p className={styles.featureDesc}>Every link is scanned for malware and protected by bank-grade encryption.</p>
           </div>
         </section>
       </main>
