@@ -46,7 +46,7 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.bottom}>
-                    <div>&copy; {new Date().getFullYear()} My URL Shortner Enterprises. All rights reserved.</div>
+                    <div>&copy; 2026 My URL Shortner. Developed and Managed by Manna Yuvatha.</div>
                     <div style={{ display: 'flex', gap: '1.5rem' }}>
                         <Link href="#" className={styles.footerLink}>Twitter</Link>
                         <Link href="#" className={styles.footerLink}>LinkedIn</Link>
