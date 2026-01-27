@@ -12,26 +12,26 @@ export default function Pricing() {
             <div className={styles.container}>
                 <div className={styles.header}>
                     <div className={styles.badge}>Pricing Plans</div>
-                    <h1 className={styles.title}>Simple, transparent <br /><span className="text-gradient">pricing.</span></h1>
+                    <h1 className={styles.title}>Scale your brand <br /><span className="text-gradient">affordably.</span></h1>
                     <p className={styles.subtitle}>
-                        Scalable URL management for creators, startups, and enterprises. No hidden fees.
+                        Choose the plan that fits your growth. From hobbyist to enterprise-grade management.
                     </p>
                 </div>
 
                 <div className={styles.grid}>
                     {/* Free Tier */}
                     <section className={styles.card}>
-                        <div className={styles.planName}>Free Starter</div>
+                        <div className={styles.planName}>Basic Free</div>
                         <div className={styles.priceDisplay}>
                             <span className={styles.currency}>₹</span>
                             <span className={styles.price}>0</span>
                             <span className={styles.period}>/mo</span>
                         </div>
                         <ul className={styles.features}>
-                            <FeatureItem text="50 links per month" />
-                            <FeatureItem text="Basic analytics" />
-                            <FeatureItem text="QR codes included" />
-                            <FeatureItem text="Community support" />
+                            <FeatureItem text="50 Shortened URLs" />
+                            <FeatureItem text="Basic Dashboard" />
+                            <FeatureItem text="Contains Ads" />
+                            <FeatureItem text="Community Support" />
                         </ul>
                         <Link href="/register" className={`${styles.btn} ${styles.btnGray}`}>
                             Get Started
@@ -40,19 +40,18 @@ export default function Pricing() {
 
                     {/* Pro Tier (Featured) */}
                     <section className={`${styles.card} ${styles.cardHighlight}`}>
-                        <div className={styles.popularBadge}>Recommended</div>
-                        <div className={styles.planName}>Professional Pro</div>
+                        <div className={styles.popularBadge}>Best Value</div>
+                        <div className={styles.planName}>Premium Plus</div>
                         <div className={styles.priceDisplay}>
                             <span className={styles.currency}>₹</span>
-                            <span className={styles.price}>299</span>
+                            <span className={styles.price}>100</span>
                             <span className={styles.period}>/mo</span>
                         </div>
                         <ul className={styles.features}>
-                            <FeatureItem text="Unlimited links" />
-                            <FeatureItem text="Real-time analytics" />
-                            <FeatureItem text="Custom aliases" />
-                            <FeatureItem text="Priority support" />
-                            <FeatureItem text="Early access features" />
+                            <FeatureItem text="100 Shortened URLs" />
+                            <FeatureItem text="Advanced Analytics" />
+                            <FeatureItem text="Extra Dashboard Props" />
+                            <FeatureItem text="Ad-Free Experience" />
                         </ul>
                         <Link href="/register" className={`${styles.btn} ${styles.btnLight}`}>
                             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
@@ -63,16 +62,17 @@ export default function Pricing() {
 
                     {/* Business Tier */}
                     <section className={styles.card}>
-                        <div className={styles.planName}>Enterprise</div>
+                        <div className={styles.planName}>Elite Brand</div>
                         <div className={styles.priceDisplay}>
-                            <span className={styles.price} style={{ fontSize: '2.5rem' }}>Custom</span>
+                            <span className={styles.currency}>₹</span>
+                            <span className={styles.price}>400</span>
+                            <span className={styles.period}>/mo</span>
                         </div>
                         <ul className={styles.features}>
-                            <FeatureItem text="Custom domains" />
-                            <FeatureItem text="Team management" />
-                            <FeatureItem text="Dedicated support" />
-                            <FeatureItem text="API White-labeling" />
-                            <FeatureItem text="SLA matching" />
+                            <FeatureItem text="1000 Shortened URLs" />
+                            <FeatureItem text="Custom Domain Support" />
+                            <FeatureItem text="Priority 24/7 Support" />
+                            <FeatureItem text="Full API Access" />
                         </ul>
                         <Link href="/contact" className={`${styles.btn} ${styles.btnGray}`}>
                             Contact Sales

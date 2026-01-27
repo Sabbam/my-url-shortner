@@ -91,8 +91,8 @@ export default function Dashboard() {
                         <div className={styles.planCard}>
                             <div className={styles.planLabel}>Account Tier</div>
                             <div className={styles.planName}>
-                                <Sparkles size={16} color="gold" fill="gold" />
-                                Professional Pro <span className={styles.activeBadge}>Active</span>
+                                <Sparkles size={16} color="#64748b" fill="#64748b" />
+                                Basic Free <span className={styles.activeBadge} style={{ background: 'rgba(100, 116, 139, 0.1)', color: '#64748b', borderColor: 'rgba(100, 116, 139, 0.2)' }}>Standard</span>
                             </div>
                         </div>
                     </div>
@@ -100,21 +100,21 @@ export default function Dashboard() {
                     <div className={styles.statsRow}>
                         <div className={styles.usageCard}>
                             <div className={styles.usageHeader}>
-                                <span className={styles.usageLabel}>Link Quota</span>
-                                <span className={styles.usageValue}>{links.length} / 500</span>
+                                <span className={styles.usageLabel}>Free Link Quota</span>
+                                <span className={styles.usageValue}>{links.length} / 50</span>
                             </div>
                             <div className={styles.progressBarTrack}>
-                                <div className={styles.progressBarFill} style={{ width: `${Math.min((links.length / 500) * 100, 100)}%` }}></div>
+                                <div className={styles.progressBarFill} style={{ width: `${Math.min((links.length / 50) * 100, 100)}%` }}></div>
                             </div>
-                            <p className={styles.usageNote}>{500 - links.length} premium links remaining.</p>
+                            <p className={styles.usageNote}>{Math.max(50 - links.length, 0)} free slots remaining.</p>
                         </div>
 
-                        <div className={styles.upgradeBanner}>
-                            <div>
-                                <h3 className={styles.upgradeTitle}>Unlock Advanced Analytics</h3>
-                                <p className={styles.upgradeText}>Get geolocation, device data, and detailed referral tracking for all your links.</p>
+                        <div className={styles.upgradeBanner} style={{ background: 'rgba(255, 255, 255, 0.02)', borderStyle: 'dashed' }}>
+                            <div style={{ opacity: 0.6 }}>
+                                <h3 className={styles.upgradeTitle} style={{ fontSize: '0.9rem', color: '#64748b' }}>SPONSORED AD</h3>
+                                <p className={styles.upgradeText}>Upgrade to <b>Premium Plus (₹100)</b> to remove ads and get 100 URLs.</p>
                             </div>
-                            <Link href="/pricing" className={styles.upgradeButton}>View Plans</Link>
+                            <Link href="/pricing" className={styles.upgradeButton} style={{ background: 'var(--primary)', color: '#fff' }}>Go Pro</Link>
                         </div>
                     </div>
                 </div>
