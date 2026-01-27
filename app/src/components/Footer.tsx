@@ -11,7 +11,7 @@ export default function Footer() {
                     <div className={styles.brandCol}>
                         <Link href="/" className={styles.logo}>
                             <Zap size={24} fill="currentColor" color="hsl(var(--primary-hsl))" />
-                            <span className="text-gradient">SLink</span>
+                            <span className="text-gradient">My URL Shortner</span>
                         </Link>
                         <p className={styles.tagline}>
                             Fast, secure, and branded URL shortening for elite performance. Transform your links into powerful assets.
@@ -46,7 +46,7 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.bottom}>
-                    <div>&copy; {new Date().getFullYear()} SLink Enterprises. All rights reserved.</div>
+                    <div>&copy; {new Date().getFullYear()} My URL Shortner Enterprises. All rights reserved.</div>
                     <div style={{ display: 'flex', gap: '1.5rem' }}>
                         <Link href="#" className={styles.footerLink}>Twitter</Link>
                         <Link href="#" className={styles.footerLink}>LinkedIn</Link>

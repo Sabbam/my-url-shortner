@@ -130,7 +130,7 @@ function LoginForm() {
                 </form>
 
                 <p className={styles.footer}>
-                    New to SLink? <Link href="/register" className={styles.footerLink}>Create free account</Link>
+                    New to My URL Shortner? <Link href="/register" className={styles.footerLink}>Create free account</Link>
                 </p>
             </div>
         </div>

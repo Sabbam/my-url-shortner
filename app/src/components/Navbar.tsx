@@ -27,7 +27,7 @@ export default function Navbar() {
             <div className={styles.navContent}>
                 <Link href="/" className={styles.logo} onClick={() => setIsOpen(false)}>
                     <Zap className={styles.logoIcon} size={28} fill="currentColor" color="hsl(var(--primary-hsl))" />
-                    <span className="text-gradient">SLink</span>
+                    <span className="text-gradient">My URL Shortner</span>
                 </Link>
 
                 {/* Desktop Links */}

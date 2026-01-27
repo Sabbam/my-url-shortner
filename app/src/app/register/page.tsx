@@ -72,7 +72,7 @@ export default function Register() {
                         <Zap size={28} fill="currentColor" />
                     </div>
                     <h1 className={styles.title}>Create Account</h1>
-                    <p className={styles.subtitle}>Join SLink and start scaling your links</p>
+                    <p className={styles.subtitle}>Join My URL Shortner and start scaling your links</p>
                 </div>
 
                 {localError && <div className={styles.error}>{localError}</div>}

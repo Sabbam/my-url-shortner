@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "SLink - Professional URL Management",
+  title: "My URL Shortner - Professional URL Management",
   description: "The premium URL management platform for modern teams.",
 };
 

@@ -72,7 +72,7 @@ export default function Dashboard() {
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(image, 0, 0);
                 const a = document.createElement('a');
-                a.download = `slink-${shortCode}-qr.png`;
+                a.download = `my-url-shortner-${shortCode}-qr.png`;
                 a.href = canvas.toDataURL('image/png');
                 a.click();
             }

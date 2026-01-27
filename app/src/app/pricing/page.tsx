@@ -69,7 +69,7 @@ export default function Pricing() {
                             <span className={styles.period}>/mo</span>
                         </div>
                         <ul className={styles.features}>
-                            <FeatureItem text="1000 Shortened URLs" />
+                            <FeatureItem text="100 Shortened URLs" />
                             <FeatureItem text="Custom Domain Support" />
                             <FeatureItem text="Priority 24/7 Support" />
                             <FeatureItem text="Full API Access" />

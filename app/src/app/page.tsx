@@ -91,7 +91,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
-            Stop using long, cluttered URLs. SLink transforms your brand's presence with fast, professional, and trackable links in seconds.
+            Stop using long, cluttered URLs. My URL Shortner transforms your brand's presence with fast, professional, and trackable links in seconds.
           </motion.p>
 
           {/* Main Interaction Card */}
