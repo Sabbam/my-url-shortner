@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = { "http://localhost:3000", "https://s.myfervera.in" })
 public class UrlController {
 
     private final UrlService urlService;
@@ -63,7 +63,7 @@ public class UrlController {
         if (mapping.isPresent()) {
             return new RedirectView(mapping.get().getOriginalUrl());
         }
-        return new RedirectView("http://localhost:3000?error=not_found");
+        return new RedirectView("https://s.myfervera.in?error=not_found");
     }
 
     public static class UrlRequest {
