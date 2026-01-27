@@ -4,12 +4,14 @@ import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 import Link from 'next/link';
-import { Zap } from 'lucide-react';
+import { Zap, Eye, EyeOff } from 'lucide-react';
+import toast from 'react-hot-toast';
 import styles from '../auth-refined.module.css';
 
 export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [localError, setLocalError] = useState('');
     const [loading, setLoading] = useState(false);
     const router = useRouter();
@@ -26,7 +28,7 @@ export default function Register() {
         setLocalError('');
         setLoading(true);
 
-        try {
+        const registerPromise = async () => {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -35,20 +37,29 @@ export default function Register() {
 
             const data = await res.text();
             if (!res.ok) {
+                let errorMsg = 'Registration failed';
                 try {
                     const jsonError = JSON.parse(data);
-                    throw new Error(jsonError.message || data);
+                    errorMsg = jsonError.message || data;
                 } catch {
-                    throw new Error(data || 'Registration failed');
+                    errorMsg = data || 'Registration failed';
                 }
+                throw new Error(errorMsg);
             }
+            return data;
+        };
 
+        toast.promise(registerPromise(), {
+            loading: 'Creating your account...',
+            success: 'Registration successful!',
+            error: (err) => err.message,
+        }).then(() => {
             router.push('/login?registered=true');
-        } catch (err: any) {
+        }).catch((err) => {
             setLocalError(err.message);
-        } finally {
+        }).finally(() => {
             setLoading(false);
-        }
+        });
     };
 
     return (
@@ -82,13 +93,20 @@ export default function Register() {
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>Password</label>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="Min. 8 characters"
                             className={styles.inputField}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+                        <button
+                            type="button"
+                            className={styles.passwordToggle}
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </button>
                     </div>
 
                     <button type="submit" className={styles.button} disabled={loading}>

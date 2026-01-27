@@ -2,31 +2,39 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
-import { Zap } from 'lucide-react';
+import { Zap, Eye, EyeOff } from 'lucide-react';
+import toast from 'react-hot-toast';
 import styles from '../auth-refined.module.css';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [localError, setLocalError] = useState('');
     const { login, user } = useAuth();
     const router = useRouter();
+    const searchParams = useSearchParams();
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         if (user) {
             router.push('/dashboard');
         }
-    }, [user, router]);
+
+        // Show success if redirected from register
+        if (searchParams.get('registered') === 'true') {
+            toast.success('Account created! Please sign in.', { id: 'registered-success' });
+        }
+    }, [user, router, searchParams]);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setLocalError('');
         setLoading(true);
 
-        try {
+        const loginPromise = async () => {
             const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -35,12 +43,14 @@ export default function Login() {
 
             const data = await res.text();
             if (!res.ok) {
+                let errorMsg = 'Login failed';
                 try {
                     const jsonError = JSON.parse(data);
-                    throw new Error(jsonError.message || data);
+                    errorMsg = jsonError.message || data;
                 } catch {
-                    throw new Error(data || 'Login failed');
+                    errorMsg = data || 'Login failed';
                 }
+                throw new Error(errorMsg);
             }
 
             let userData;
@@ -51,12 +61,20 @@ export default function Login() {
             }
 
             login(userData);
+            return userData;
+        };
+
+        toast.promise(loginPromise(), {
+            loading: 'Verifying credentials...',
+            success: 'Welcome back!',
+            error: (err) => err.message,
+        }).then(() => {
             router.push('/dashboard');
-        } catch (err: any) {
+        }).catch((err) => {
             setLocalError(err.message);
-        } finally {
+        }).finally(() => {
             setLoading(false);
-        }
+        });
     };
 
     return (
@@ -90,13 +108,20 @@ export default function Login() {
                     <div className={styles.inputGroup}>
                         <label className={styles.label}>Password</label>
                         <input
-                            type="password"
+                            type={showPassword ? "text" : "password"}
                             placeholder="••••••••"
                             className={styles.inputField}
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
                         />
+                        <button
+                            type="button"
+                            className={styles.passwordToggle}
+                            onClick={() => setShowPassword(!showPassword)}
+                        >
+                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                        </button>
                     </div>
 
                     <button type="submit" className={styles.button} disabled={loading}>
