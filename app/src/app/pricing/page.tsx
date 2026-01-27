@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { Check, ArrowRight } from 'lucide-react';
-import styles from './pricing-refined.module.css';
+import styles from '../pricing-refined.module.css';
 
 export default function Pricing() {
     return (
