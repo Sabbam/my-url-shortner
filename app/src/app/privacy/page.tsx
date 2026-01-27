@@ -1,33 +1,47 @@
 'use client';
 
+import styles from '../legal.module.css';
+
 export default function Privacy() {
     return (
-        <div style={{ background: '#f8fafc', minHeight: '100vh', padding: '8rem 1.5rem' }}>
-            <div style={{ maxWidth: '700px', margin: '0 auto', background: 'white', padding: '4rem', borderRadius: '2.5rem', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)' }}>
-                <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: '#0f172a', marginBottom: '2rem' }}>Privacy Policy</h1>
-                <p style={{ color: '#94a3b8', marginBottom: '3rem' }}>Last updated: January 2026</p>
+        <main className={styles.wrapper}>
+            <div className={styles.glow} />
+            <div className={styles.container}>
+                <header className={styles.header}>
+                    <h1 className={styles.title}>Privacy Policy</h1>
+                    <p className={styles.lastUpdated}>Last updated: January 2026</p>
+                </header>
 
-                <section style={{ marginBottom: '3rem' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a', marginBottom: '1rem' }}>1. Information We Collect</h2>
-                    <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: '1rem' }}>
-                        At My Ecosystems, your privacy is our priority. When you use our service, we collect basic account information (email, password) and link interaction data (IP addresses, device type) purely for analytics purposes.
-                    </p>
-                </section>
+                <div className={styles.content}>
+                    <section>
+                        <h2>1. Information We Collect</h2>
+                        <p>
+                            At My URL Shortner, your privacy is our supreme priority. When you use our high-performance service, we collect essential account information (email) and link interaction telemetry (anonymized IP addresses, device headers) purely for analytics purposes.
+                        </p>
+                    </section>
 
-                <section style={{ marginBottom: '3rem' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a', marginBottom: '1rem' }}>2. How We Use Data</h2>
-                    <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: '1rem' }}>
-                        Analytical data is used to provide insights to our users. We do not sell your personal information or the browsing history of your link clickers to third parties.
-                    </p>
-                </section>
+                    <section>
+                        <h2>2. How We Use Data</h2>
+                        <p>
+                            Analytical data is used exclusively to provide insights to our users. We strictly do not sell your personal information or the browsing history of your link visitors to any third parties for marketing or tracking.
+                        </p>
+                    </section>
 
-                <section>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700, color: '#0f172a', marginBottom: '1rem' }}>3. Data Sovereignty</h2>
-                    <p style={{ color: '#475569', lineHeight: 1.7, marginBottom: '1rem' }}>
-                        You have the right to request the deletion of your account and all associated link data at any time from your dashboard settings.
-                    </p>
-                </section>
+                    <section>
+                        <h2>3. Data Sovereignty</h2>
+                        <p>
+                            You maintain full control over your data. You have the right to request the complete deletion of your account and all associated link history at any time through our automated support channels.
+                        </p>
+                    </section>
+
+                    <section>
+                        <h2>4. Cookie Policy</h2>
+                        <p>
+                            We use standard technical cookies to keep you signed in securely. No cross-site tracking cookies are utilized for advertising on our platform.
+                        </p>
+                    </section>
+                </div>
             </div>
-        </div>
+        </main>
     );
 }

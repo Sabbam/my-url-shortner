@@ -1,0 +1,82 @@
+.wrapper {
+    background: var(--background);
+    min-height: 100vh;
+    padding: 10rem 1.5rem 6rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.glow {
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 60%;
+    height: 60%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
+    filter: blur(100px);
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+}
+
+.lastUpdated {
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-weight: 600;
+}
+
+.content {
+    background: rgba(15, 23, 42, 0.4);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    padding: 4rem;
+    border-radius: 2.5rem;
+    color: var(--muted);
+    line-height: 1.8;
+}
+
+.content h2 {
+    color: #fff;
+    font-size: 1.75rem;
+    margin: 3rem 0 1.5rem;
+    font-weight: 700;
+}
+
+.content h2:first-child {
+    margin-top: 0;
+}
+
+.content p {
+    margin-bottom: 1.5rem;
+}
+
+.content ul {
+    margin-bottom: 2rem;
+    padding-left: 1.5rem;
+}
+
+.content li {
+    margin-bottom: 0.75rem;
+}
+
+@media (max-width: 768px) {
+    .content {
+        padding: 2.5rem 1.5rem;
+    }
+}

@@ -32,7 +32,7 @@ export default function FAQ() {
 
     return (
         <main className={styles.wrapper}>
-            <div className={styles.aurora} />
+            <div className={styles.glow} />
             <div className={styles.container}>
                 <div className={styles.header}>
                     <h1 className={styles.title}>Frequently Asked Questions</h1>
