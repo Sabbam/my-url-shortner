@@ -1,0 +1,350 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+}
+
+.header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.headerContent {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .headerContent {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.04em;
+    margin-bottom: 0.5rem;
+}
+
+.subtitle {
+    color: #64748b;
+    font-size: 1.1rem;
+}
+
+.planCard {
+    background: white;
+    padding: 1.25rem 1.5rem;
+    border-radius: 1.25rem;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    text-align: left;
+    min-width: 200px;
+}
+
+@media (min-width: 768px) {
+    .planCard {
+        text-align: right;
+    }
+}
+
+.planLabel {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.5rem;
+}
+
+.planName {
+    font-size: 1.25rem;
+    font-weight: 800;
+    color: #0f172a;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+@media (min-width: 768px) {
+    .planName {
+        justify-content: flex-end;
+    }
+}
+
+.activeBadge {
+    font-size: 0.7rem;
+    background: #f1f5f9;
+    padding: 0.25rem 0.625rem;
+    border-radius: 999px;
+    color: #475569;
+    font-weight: 700;
+}
+
+/* Stats Row for Usage and Upsell */
+.statsRow {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.usageCard {
+    flex: 1;
+    background: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    border: 1px solid #e2e8f0;
+    min-width: 280px;
+    /* Ensure it doesn't get too squashed */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.usageHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.usageLabel {
+    font-weight: 600;
+    color: #475569;
+}
+
+.usageValue {
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.progressBarTrack {
+    width: 100%;
+    height: 8px;
+    background: #f1f5f9;
+    border-radius: 99px;
+    overflow: hidden;
+}
+
+.progressBarFill {
+    height: 100%;
+    background: #2563eb;
+    border-radius: 99px;
+    transition: width 0.5s ease-out;
+}
+
+.usageNote {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+    color: #64748b;
+}
+
+.upgradeBanner {
+    flex: 2;
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.2);
+    min-width: 280px;
+}
+
+.upgradeTitle {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    color: white;
+}
+
+.upgradeText {
+    opacity: 0.9;
+    color: white;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.upgradeButton {
+    background: white;
+    color: #4f46e5;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+    margin-left: 1rem;
+    transition: transform 0.2s;
+}
+
+.upgradeButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+    .upgradeBanner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.5rem;
+    }
+
+    .upgradeButton {
+        margin-left: 0;
+        width: 100%;
+        text-align: center;
+    }
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card {
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    transition: all 0.2s;
+    display: flex;
+    flex-direction: column;
+}
+
+.card:hover {
+    border-color: #cbd5e1;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.meta {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.75rem;
+    color: #94a3b8;
+}
+
+.analytics {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #64748b;
+    background: #f1f5f9;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.shortLink {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2563eb;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    word-break: break-all;
+    display: block;
+}
+
+.shortLink:hover {
+    text-decoration: underline;
+}
+
+.originalUrl {
+    font-size: 0.875rem;
+    color: #64748b;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 1.5rem;
+}
+
+.actions {
+    display: flex;
+    border-top: 1px solid #f1f5f9;
+    padding-top: 1rem;
+    margin-top: auto;
+    gap: 0.5rem;
+}
+
+.actionButton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 0.5rem;
+    background: white;
+    color: #475569;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.actionButton:hover {
+    background: #f8fafc;
+    color: #0f172a;
+    border-color: #cbd5e1;
+}
+
+.loading {
+    text-align: center;
+    color: #94a3b8;
+    padding: 4rem;
+}
+
+.emptyState {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 1rem;
+}
+
+.emptyIcon {
+    color: #cbd5e1;
+    margin-bottom: 1rem;
+}
+
+.createButton {
+    display: inline-flex;
+    padding: 0.75rem 1.5rem;
+    background: #2563eb;
+    color: white;
+    text-decoration: none;
+    border-radius: 0.5rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    transition: background 0.2s;
+}
+
+.createButton:hover {
+    background: #1d4ed8;
+}

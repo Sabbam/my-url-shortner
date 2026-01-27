@@ -1,0 +1,246 @@
+.wrapper {
+    min-height: 100vh;
+    position: relative;
+    background-color: #f8fafc;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.auroraBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100vh;
+    z-index: 0;
+    background: white;
+    overflow: hidden;
+}
+
+.aurora1 {
+    position: absolute;
+    top: -10%;
+    left: -10%;
+    width: 80%;
+    height: 80%;
+    background: radial-gradient(circle, rgba(37, 99, 235, 0.1) 0%, transparent 70%);
+    filter: blur(80px);
+}
+
+.aurora2 {
+    position: absolute;
+    top: 40%;
+    right: -10%;
+    width: 70%;
+    height: 70%;
+    background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+    filter: blur(80px);
+}
+
+.container {
+    position: relative;
+    z-index: 10;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10rem 1.5rem 8rem;
+    width: 100%;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 6rem;
+}
+
+.badge {
+    display: inline-flex;
+    padding: 0.6rem 1.25rem;
+    background: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 99px;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: #2563eb;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02);
+}
+
+.title {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 900;
+    color: #0f172a;
+    letter-spacing: -0.05em;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    color: #64748b;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    align-items: stretch;
+}
+
+@media (min-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card {
+    background: white;
+    padding: 4rem 3rem;
+    border-radius: 3rem;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+    position: relative;
+    min-height: 600px;
+}
+
+.card:hover {
+    transform: translateY(-15px);
+    box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.1);
+}
+
+/* Explicit selector to override .card properties correctly */
+.cardHighlight {
+    background: #0f172a !important;
+    /* Force true dark background */
+    color: white !important;
+    border: none !important;
+    box-shadow: 0 30px 60px -15px rgba(15, 23, 42, 0.4) !important;
+    z-index: 20;
+}
+
+.cardHighlight:hover {
+    transform: translateY(-20px) scale(1.02);
+}
+
+.popularBadge {
+    position: absolute;
+    top: 2rem;
+    right: 2.5rem;
+    background: #2563eb;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 99px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.planName {
+    font-size: 1.5rem;
+    font-weight: 800;
+    margin-bottom: 2.5rem;
+}
+
+.priceDisplay {
+    margin-bottom: 3.5rem;
+    display: flex;
+    align-items: baseline;
+}
+
+.currency {
+    font-size: 1.5rem;
+    font-weight: 600;
+    opacity: 0.7;
+}
+
+.price {
+    font-size: 4.5rem;
+    font-weight: 900;
+    letter-spacing: -0.05em;
+    line-height: 1;
+    margin: 0 4px;
+}
+
+.period {
+    font-size: 1.1rem;
+    opacity: 0.6;
+}
+
+.features {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 4rem;
+    flex: 1;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin-bottom: 1.25rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+}
+
+.icon {
+    color: #2563eb;
+    flex-shrink: 0;
+}
+
+.cardHighlight .icon {
+    color: #60a5fa;
+}
+
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 1.25rem;
+    border-radius: 1.5rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 1.1rem;
+    border: none;
+    cursor: pointer;
+}
+
+.btnLight {
+    background: white;
+    color: #0f172a;
+    box-shadow: 0 10px 20px -5px rgba(255, 255, 255, 0.2);
+}
+
+.btnLight:hover {
+    background: #f1f5f9;
+    transform: scale(1.02);
+}
+
+.btnDark {
+    background: #0f172a;
+    color: white;
+    box-shadow: 0 10px 15px -3px rgba(15, 23, 42, 0.1);
+}
+
+.btnDark:hover {
+    background: #1e293b;
+    transform: scale(1.02);
+}
+
+.btnGray {
+    background: #f1f5f9;
+    color: #0f172a;
+}
+
+.btnGray:hover {
+    background: #e2e8f0;
+    transform: scale(1.02);
+}
