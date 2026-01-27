@@ -1,0 +1,479 @@
+/* Quantum Flow - Pro UX Design */
+
+.wrapper {
+    min-height: 100vh;
+    background: transparent;
+    color: #ffffff;
+    font-family: var(--font-main);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Background handled globally in Layout */
+
+/* --- Layout --- */
+.container {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 10rem 2rem 4rem;
+    /* Top padding to clear navbar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    /* Removed center to prevent bunching */
+    min-height: 100vh;
+}
+
+/* --- Hero Typography --- */
+.heroContent {
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.pillLabel {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.05);
+}
+
+.titleMain {
+    font-size: clamp(3rem, 10vw, 7.5rem);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    color: white;
+    margin-bottom: 1.5rem;
+    background: linear-gradient(to bottom, #ffffff 40%, rgba(255, 255, 255, 0.4) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.1));
+    word-wrap: break-word;
+    padding: 0 1rem;
+}
+
+.titleAccent {
+    display: block;
+    background: linear-gradient(90deg, #00f2ff, #00c3ff, #ff00aa);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shine 5s linear infinite;
+}
+
+@keyframes shine {
+    to {
+        background-position: 200% center;
+    }
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.5);
+    max-width: 500px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* --- Glass Command Bar (The main input) --- */
+.commandBarWrapper {
+    width: 100%;
+    max-width: 700px;
+    position: relative;
+    z-index: 20;
+    padding: 0 1rem;
+}
+
+.glowContainer {
+    position: relative;
+    padding: 2px;
+    /* Thinner border for cleaner look */
+    border-radius: 24px;
+    background: linear-gradient(90deg, rgba(0, 242, 255, 0.5), rgba(255, 0, 170, 0.5), rgba(0, 242, 255, 0.5));
+    background-size: 200% 200%;
+    animation: borderFlow 4s linear infinite;
+    transition: all 0.3s ease;
+}
+
+.inputCard {
+    background: rgba(10, 10, 14, 0.95);
+    border-radius: 22px;
+    padding: 0.5rem;
+    /* Equal padding around inner content */
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.8);
+}
+
+@keyframes borderFlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.inputRow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    /* Balanced horizontal padding */
+    width: 100%;
+}
+
+.inputIcon {
+    color: rgba(255, 255, 255, 0.4);
+    margin-right: 0.5rem;
+    flex-shrink: 0;
+}
+
+.mainInput {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 1.1rem;
+    font-family: var(--font-main);
+    padding: 0.5rem 0;
+}
+
+.mainInput::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.optionsButton {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.6);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.optionsButton:hover,
+.optionsButtonActive {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+.optionsButtonActive {
+    background: rgba(0, 242, 255, 0.1);
+    color: #00f2ff;
+    border-color: rgba(0, 242, 255, 0.3);
+}
+
+.actionButton {
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 14px;
+    padding: 0 1.5rem;
+    height: 3rem;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s cubic-bezier(0.3, 2, 0.3, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    flex-shrink: 0;
+}
+
+.actionButton:hover {
+    transform: scale(1.05);
+}
+
+/* Alias Drawer */
+.aliasDrawer {
+    overflow: hidden;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    margin-top: 0;
+}
+
+.aliasRow {
+    padding: 1rem 0.5rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.aliasPrefix {
+    color: #64748b;
+    font-family: monospace;
+    font-size: 0.9rem;
+    padding-left: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.aliasInput {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    color: #00f2ff;
+    font-family: monospace;
+    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    outline: none;
+    flex: 1;
+    margin-right: 0;
+    transition: border 0.3s;
+}
+
+.aliasInput:focus {
+    border-color: #00f2ff;
+}
+
+/* --- Result Card --- */
+.ticketWrapper {
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 600px;
+    perspective: 1000px;
+}
+
+.ticket {
+    background: rgba(25, 25, 30, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.ticketHeader {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 1.5rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.ticketStatus {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: #00f2ff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.pulseDot {
+    width: 8px;
+    height: 8px;
+    background: #00f2ff;
+    border-radius: 50%;
+    box-shadow: 0 0 10px #00f2ff;
+    animation: pulse 2s infinite;
+}
+
+.ticketBody {
+    padding: 2rem;
+    text-align: center;
+}
+
+.shortLink {
+    font-size: 2rem;
+    font-weight: 800;
+    color: white;
+    margin-bottom: 2rem;
+    word-break: break-all;
+    line-height: 1.2;
+    background: linear-gradient(90deg, #fff, #94a3b8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.shortLink:hover {
+    transform: scale(1.02);
+}
+
+.ticketActions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.secondaryBtn {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem;
+    border-radius: 12px;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.secondaryBtn:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+/* Stats Strip - FIXED */
+.statsStrip {
+    position: relative;
+    /* RELATIVE POSITION to avoid overlap */
+    margin-top: 5rem;
+    width: 100%;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    /* Allow wrapping */
+}
+
+.statItem {
+    text-align: center;
+}
+
+.statValue {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.statLabel {
+    font-size: 0.8rem;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+@media (max-width: 768px) {
+    .statsStrip {
+        gap: 2rem;
+        margin-top: 3rem;
+    }
+
+    .titleMain {
+        font-size: 3.5rem;
+    }
+
+    .ticketActions {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 6rem 1rem 2rem;
+        /* Adjusted for mobile */
+    }
+
+    .heroContent {
+        margin-bottom: 2rem;
+    }
+
+    .titleMain {
+        font-size: 2.75rem;
+    }
+
+    .inputCard {
+        padding: 0.4rem;
+    }
+
+    .inputRow {
+        gap: 0.4rem;
+    }
+
+    .mainInput {
+        font-size: 1rem;
+    }
+
+    .optionsButton,
+    .actionButton {
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: 0;
+        /* Icon only on super small? */
+    }
+
+    .actionButton {
+        padding: 0 1rem;
+    }
+
+    /* Alias Drawer Mobile */
+    .aliasRow {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+    }
+
+    .aliasInput {
+        margin-right: 0;
+    }
+
+    .ticketWrapper {
+        margin-top: 2rem;
+        width: 100%;
+    }
+
+    .shortLink {
+        font-size: 1.5rem;
+    }
+
+    .ticketActions {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,25 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  /* Brand Colors - Sophisticated Blue/Purple Palette */
-  --primary-hsl: 230, 85%, 60%;
+  /* Brand Colors - Quantum Palette */
+  --primary-hsl: 180, 100%, 50%;
+  /* Cyan */
   --primary: hsl(var(--primary-hsl));
-  --primary-dark: hsl(230, 85%, 50%);
-  --primary-light: hsl(230, 85%, 75%);
-  --secondary-hsl: 260, 80%, 65%;
+  --secondary-hsl: 320, 100%, 50%;
+  /* Magenta */
   --secondary: hsl(var(--secondary-hsl));
 
-  /* Neutral Palette */
-  --background: #05070a;
-  --foreground: #f8fafc;
-  --surface: rgba(15, 23, 42, 0.6);
+  /* Neutral Palette - Deep Space */
+  --background: #000000;
+  --foreground: #ffffff;
+  --surface: rgba(255, 255, 255, 0.03);
   --surface-border: rgba(255, 255, 255, 0.08);
-  --muted: #64748b;
+  --muted: #94a3b8;
   --border: rgba(255, 255, 255, 0.1);
 
   /* Effects */
-  --glass: rgba(15, 23, 42, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.12);
+  --glass: rgba(10, 10, 10, 0.6);
+  --glass-border: rgba(255, 255, 255, 0.08);
   --radius-lg: 1.5rem;
   --radius-md: 1rem;
   --radius-sm: 0.5rem;
@@ -43,7 +43,7 @@ body {
   color: var(--foreground);
   font-family: var(--font-main);
   -webkit-font-smoothing: antialiased;
-  scroll-behavior: smooth;
+  min-height: 100vh;
 }
 
 h1,
@@ -63,28 +63,84 @@ a {
   transition: all 0.2s ease;
 }
 
-button {
-  font-family: var(--font-main);
+/* Global Quantum Background - To be used in Layout */
+.quantum-bg-layer {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: radial-gradient(circle at 50% 50%, #111 0%, #000 100%);
+  pointer-events: none;
 }
 
-/* Custom Utilities */
-.glass {
+.quantum-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: 0.4;
+  animation: float 25s infinite ease-in-out;
+}
+
+.blob-cyan {
+  top: -20%;
+  left: -10%;
+  width: 70vw;
+  height: 70vw;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, transparent 70%);
+}
+
+.blob-magenta {
+  bottom: -20%;
+  right: -10%;
+  width: 80vw;
+  height: 80vw;
+  background: radial-gradient(circle, rgba(255, 0, 128, 0.25) 0%, transparent 70%);
+  animation-delay: -10s;
+  animation-direction: reverse;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+
+  50% {
+    transform: translate(40px, -40px) rotate(5deg);
+  }
+
+  100% {
+    transform: translate(0, 0) rotate(0deg);
+  }
+}
+
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  opacity: 0.05;
+  pointer-events: none;
+}
+
+/* Utilities */
+.glass-panel {
   background: var(--glass);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
 }
 
-.text-gradient {
-  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+.text-gradient-gold {
+  background: linear-gradient(135deg, #FFD700 0%, #FDB931 100%);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
   background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-.subtle-grid {
-  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #00f2ff 0%, #00c3ff 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* Scrollbar */
@@ -93,20 +149,14 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--background);
+  background: #000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #222;
   border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #334155;
-}
-
-@media (max-width: 768px) {
-  :root {
-    --radius-lg: 1rem;
-  }
+  background: #444;
 }

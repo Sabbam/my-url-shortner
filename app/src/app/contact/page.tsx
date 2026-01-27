@@ -2,6 +2,7 @@
 
 import { Mail, MapPin, Phone, Send } from 'lucide-react';
 import styles from '../contact.module.css';
+import toast from 'react-hot-toast';
 
 export default function Contact() {
     return (
@@ -45,7 +46,7 @@ export default function Contact() {
                                 />
                             </div>
 
-                            <button type="submit" className={styles.submitBtn}>
+                            <button type="submit" className={styles.submitBtn} onClick={() => toast.success("Message sent! We'll allow 24 hours for a response.")}>
                                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}>
                                     Send Message <Send size={18} />
                                 </div>

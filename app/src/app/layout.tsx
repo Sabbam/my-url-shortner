@@ -47,7 +47,14 @@ export default function RootLayout({
               }
             }}
           />
-          <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+          {/* Global Quantum Background - Persists across all pages */}
+          <div className="quantum-bg-layer">
+            <div className="quantum-blob blob-cyan" />
+            <div className="quantum-blob blob-magenta" />
+          </div>
+          <div className="noise-overlay" />
+
+          <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', position: 'relative', zIndex: 1 }}>
             <Navbar />
             <div style={{ flex: 1 }}>
               {children}

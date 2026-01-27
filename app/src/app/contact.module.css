@@ -1,23 +1,15 @@
+/* Quantum Contact - Premium Layout */
+
 .wrapper {
-    background: var(--background);
+    background: transparent;
     min-height: 100vh;
     padding: 10rem 1.5rem 6rem;
     position: relative;
     overflow: hidden;
 }
 
-.glow {
-    position: absolute;
-    top: -10%;
-    right: -10%;
-    width: 50%;
-    height: 50%;
-    background: radial-gradient(circle, rgba(37, 99, 235, 0.08) 0%, transparent 70%);
-    filter: blur(100px);
-}
-
 .container {
-    max-width: 1100px;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative;
     z-index: 10;
@@ -29,15 +21,21 @@
 }
 
 .title {
-    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-size: clamp(2.5rem, 6vw, 5rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1;
     margin-bottom: 1.5rem;
+    color: #fff;
+    /* Quantum Gradient Text */
+    background: linear-gradient(135deg, #fff 0%, #a5b4fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 .subtitle {
     font-size: 1.25rem;
-    color: var(--muted);
+    color: #94a3b8;
     max-width: 500px;
     margin: 0 auto;
 }
@@ -52,15 +50,19 @@
     .content {
         grid-template-columns: 1.5fr 1fr;
         align-items: start;
+        gap: 6rem;
+        /* Increased spacing */
     }
 }
 
+/* Glass Form Card */
 .formCard {
-    background: rgba(15, 23, 42, 0.4);
-    backdrop-filter: blur(20px);
+    background: var(--glass);
+    backdrop-filter: blur(30px);
     border: 1px solid var(--glass-border);
     padding: 3rem;
     border-radius: 2.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
 }
 
 .form {
@@ -89,50 +91,57 @@
 
 .label {
     font-size: 0.85rem;
-    font-weight: 600;
-    color: #94a3b8;
+    font-weight: 700;
+    color: #cbd5e1;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     margin-left: 0.25rem;
 }
 
 .input,
 .textarea {
     width: 100%;
-    padding: 1rem 1.25rem;
-    background: rgba(5, 7, 10, 0.8);
-    border: 1px solid var(--surface-border);
+    padding: 1.25rem;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 1rem;
     color: #fff;
-    font-size: 0.95rem;
+    font-size: 1rem;
     outline: none;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
 }
 
 .input:focus,
 .textarea:focus {
     border-color: var(--primary);
-    background: rgba(15, 23, 42, 0.8);
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 0 4px rgba(0, 242, 255, 0.1);
 }
 
 .submitBtn {
     width: 100%;
-    padding: 1.125rem;
-    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+    padding: 1.25rem;
+    background: linear-gradient(90deg, var(--primary), var(--secondary));
     color: white;
-    font-weight: 700;
+    font-weight: 800;
     border: none;
     border-radius: 1rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
     font-size: 1rem;
     margin-top: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
 }
 
 .submitBtn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.4);
-    filter: brightness(1.1);
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px -5px rgba(0, 242, 255, 0.4);
 }
 
+/* Info Cards */
 .infoGrid {
     display: flex;
     flex-direction: column;
@@ -142,40 +151,47 @@
 .infoCard {
     padding: 2rem;
     background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--surface-border);
+    border: 1px solid rgba(255, 255, 255, 0.05);
     border-radius: 1.5rem;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    /* Horizontal layout for info */
     align-items: center;
-    text-align: center;
+    gap: 1.5rem;
+    text-align: left;
     transition: all 0.3s ease;
 }
 
 .infoCard:hover {
-    transform: translateY(-4px);
+    transform: translateX(10px);
     background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(255, 255, 255, 0.1);
 }
 
 .iconBox {
-    color: var(--primary-light);
-    background: rgba(37, 99, 235, 0.1);
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 1rem;
+    color: var(--primary);
+    background: rgba(0, 242, 255, 0.1);
+    width: 4rem;
+    height: 4rem;
+    border-radius: 1.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 1.25rem;
+    flex-shrink: 0;
+    /* Prevent shrinking */
 }
 
 .infoTitle {
-    font-size: 1.125rem;
+    font-size: 0.9rem;
     font-weight: 700;
-    color: #fff;
-    margin-bottom: 0.5rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.25rem;
 }
 
 .infoValue {
-    font-size: 0.95rem;
-    color: var(--muted);
+    font-size: 1.1rem;
+    color: #fff;
+    font-weight: 600;
 }

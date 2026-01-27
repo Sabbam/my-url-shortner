@@ -1,0 +1,53 @@
+2026-01-27 23:02:42.013165+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: The object is already closed [90007-224]
+2026-01-27 23:03:25.447324+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:28.750089+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:29.684737+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:31.315676+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:31.851095+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:32.100797+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:32.318469+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:32.533643+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:32.748539+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:32.948814+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:37.848415+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:51.385446+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:52.116172+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:52.665697+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:53.298736+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:54.336820+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]
+2026-01-27 23:03:56.816440+05:30 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLDataException: Value too long for column "ORIGINAL_URL CHARACTER VARYING(255)": "'https://www.google.com/search?q=wikipedia+india&oq=wiki&gs_lcrp=EgZjaHJvbWUqDQg... (292)"; SQL statement:
+insert into url_mapping (created_at,original_url,short_code,user_id,id) values (?,?,?,?,default) [22001-224]

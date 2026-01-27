@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'next/navigation';
-import { Copy, ExternalLink, Link2, Calendar, TrendingUp, Sparkles, Plus, Check } from 'lucide-react';
+import { Copy, ExternalLink, Link2, Calendar, TrendingUp, Sparkles, Plus, Check, Search, Download } from 'lucide-react';
 import { QRCodeSVG } from 'qrcode.react';
 import styles from '../dashboard.module.css';
 import Link from 'next/link';
@@ -16,11 +16,13 @@ interface LinkData {
     createdAt: string;
 }
 
+
 export default function Dashboard() {
     const { user } = useAuth();
     const router = useRouter();
     const [links, setLinks] = useState<LinkData[]>([]);
     const [loading, setLoading] = useState(true);
+    const [searchQuery, setSearchQuery] = useState('');
     const [copiedId, setCopiedId] = useState<number | null>(null);
 
     useEffect(() => {
@@ -34,7 +36,9 @@ export default function Dashboard() {
                 const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/links?userId=${user.id}`);
                 if (res.ok) {
                     const data = await res.json();
-                    setLinks(data);
+                    // Sort by newest first
+                    const sorted = data.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+                    setLinks(sorted);
                 }
             } catch (err) {
                 console.error("Failed to fetch links", err);
@@ -72,141 +76,160 @@ export default function Dashboard() {
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
                 ctx.drawImage(image, 0, 0);
                 const a = document.createElement('a');
-                a.download = `my-url-shortner-${shortCode}-qr.png`;
+                a.download = `quantum-qr-${shortCode}.png`;
                 a.href = canvas.toDataURL('image/png');
                 a.click();
             }
         };
     };
 
+    // Filter links based on search
+    const filteredLinks = links.filter(link =>
+        link.shortCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        link.originalUrl.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
     return (
-        <main style={{ minHeight: '100vh', paddingTop: '6rem' }}>
+        <main style={{ minHeight: '100vh', paddingTop: '8rem', paddingBottom: '4rem' }}>
             <div className={styles.container}>
-                <div className={styles.header}>
-                    <div className={styles.headerContent}>
-                        <div>
-                            <h1 className={styles.title}>Dashboard</h1>
-                            <p className={styles.subtitle}>Welcome back, <span style={{ color: '#fff', fontWeight: 600 }}>{user?.email}</span></p>
+
+                {/* Command Deck HUD */}
+                <section className={styles.commandDeck}>
+                    <div className={styles.deckSection}>
+                        <h1 className={styles.welcomeTitle}>Command Center</h1>
+                        <p className={styles.welcomeSubtitle}>
+                            Logged in as <span style={{ color: '#fff', fontWeight: 600 }}>{user?.email}</span>
+                        </p>
+                        <div className={styles.planBadge}>
+                            <Sparkles size={14} />
+                            QUANTUM TIER
                         </div>
-                        <div className={styles.planCard}>
-                            <div className={styles.planLabel}>Account Tier</div>
-                            <div className={styles.planName}>
-                                <Sparkles size={16} color="#64748b" fill="#64748b" />
-                                Basic Free <span className={styles.activeBadge} style={{ background: 'rgba(100, 116, 139, 0.1)', color: '#64748b', borderColor: 'rgba(100, 116, 139, 0.2)' }}>Standard</span>
+                    </div>
+
+                    <div className={styles.deckSection}>
+                        <div className={styles.usageMeter}>
+                            <div className={styles.meterHeader}>
+                                <span>Link Slots</span>
+                                <span>{links.length} / 50</span>
+                            </div>
+                            <div className={styles.meterTrack}>
+                                <div
+                                    className={styles.meterFill}
+                                    style={{ width: `${Math.min((links.length / 50) * 100, 100)}%` }}
+                                />
                             </div>
                         </div>
                     </div>
 
-                    <div className={styles.statsRow}>
-                        <div className={styles.usageCard}>
-                            <div className={styles.usageHeader}>
-                                <span className={styles.usageLabel}>Free Link Quota</span>
-                                <span className={styles.usageValue}>{links.length} / 50</span>
-                            </div>
-                            <div className={styles.progressBarTrack}>
-                                <div className={styles.progressBarFill} style={{ width: `${Math.min((links.length / 50) * 100, 100)}%` }}></div>
-                            </div>
-                            <p className={styles.usageNote}>{Math.max(50 - links.length, 0)} free slots remaining.</p>
-                        </div>
-
-                        <div className={styles.upgradeBanner} style={{ background: 'rgba(255, 255, 255, 0.02)', borderStyle: 'dashed' }}>
-                            <div style={{ opacity: 0.6 }}>
-                                <h3 className={styles.upgradeTitle} style={{ fontSize: '0.9rem', color: '#64748b' }}>SPONSORED AD</h3>
-                                <p className={styles.upgradeText}>Upgrade to <b>Premium Plus (₹100)</b> to remove ads and get 100 URLs.</p>
-                            </div>
-                            <Link href="/pricing" className={styles.upgradeButton} style={{ background: 'var(--primary)', color: '#fff' }}>Go Pro</Link>
-                        </div>
+                    <div className={styles.deckSection} style={{ textAlign: 'right' }}>
+                        <h3 style={{ fontSize: '3rem', fontWeight: 800, lineHeight: 1, color: '#fff' }}>{links.length}</h3>
+                        <p style={{ color: '#94a3b8', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Active Links</p>
                     </div>
-                </div>
+                </section>
 
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
-                    <h2 style={{ fontSize: '1.25rem', fontWeight: 700 }}>Your Optimized Links</h2>
-                    <Link href="/" className={styles.createButton} style={{ padding: '0.5rem 1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Plus size={18} /> New Link
+                {/* Controls Bar */}
+                <div className={styles.controlsBar}>
+                    <div className={styles.searchWrapper}>
+                        <Search size={18} className={styles.searchIcon} />
+                        <input
+                            type="text"
+                            placeholder="Search by alias or target URL..."
+                            className={styles.searchInput}
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                        />
+                    </div>
+                    <Link href="/" className={styles.createBtn}>
+                        <Plus size={18} /> Create New Link
                     </Link>
                 </div>
 
+                {/* Results Grid */}
                 {loading ? (
-                    <div style={{ textAlign: 'center', padding: '4rem 0', color: '#94a3b8' }}>
-                        <div className="spinner" style={{ margin: '0 auto 1rem' }}></div>
-                        Synchronizing with edge network...
+                    <div className={styles.loading}>
+                        <Sparkles className="animate-spin" size={32} />
                     </div>
-                ) : links.length > 0 ? (
+                ) : filteredLinks.length > 0 ? (
                     <motion.div
                         className={styles.grid}
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5 }}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
                     >
-                        {links.map((link) => {
+                        {filteredLinks.map((link) => {
                             const host = typeof window !== 'undefined' ? window.location.host : 's.myfervera.in';
                             const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
                             const fullUrl = `${protocol}//${host}/${link.shortCode}`;
 
                             return (
-                                <div key={link.id} className={styles.card}>
+                                <motion.div
+                                    key={link.id}
+                                    className={styles.card}
+                                    layoutId={`card-${link.id}`}
+                                >
                                     <div className={styles.cardHeader}>
-                                        <div className={styles.meta}>
-                                            <Calendar size={14} />
-                                            {new Date(link.createdAt).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                                            <div style={{ width: '8px', height: '8px', background: '#22c55e', borderRadius: '50%', boxShadow: '0 0 10px #22c55e' }} />
+                                            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: '#22c55e' }}>ACTIVE</span>
                                         </div>
-                                        <div className={styles.analytics}>
-                                            <TrendingUp size={12} style={{ marginRight: '4px' }} />
-                                            Live Tracked
-                                        </div>
+                                        <span className={styles.date}>
+                                            {new Date(link.createdAt).toLocaleDateString()}
+                                        </span>
                                     </div>
 
-                                    <div>
-                                        <a href={fullUrl} target="_blank" className={styles.shortLink}>
-                                            /{link.shortCode}
-                                        </a>
-                                        <div className={styles.originalUrl} title={link.originalUrl}>
-                                            {link.originalUrl}
+                                    <div className={styles.cardBody}>
+                                        <div className={styles.linkInfo}>
+                                            <a href={fullUrl} target="_blank" className={styles.shortLink}>
+                                                /{link.shortCode}
+                                            </a>
+                                            <div className={styles.originalLink} title={link.originalUrl}>
+                                                {link.originalUrl}
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div style={{ display: 'flex', gap: '1rem', alignItems: 'center', background: 'rgba(255,255,255,0.02)', padding: '1rem', borderRadius: '1rem', border: '1px solid var(--surface-border)' }}>
-                                        <div style={{ background: '#fff', padding: '4px', borderRadius: '6px', flexShrink: 0 }}>
-                                            <QRCodeSVG
-                                                id={`qr-${link.shortCode}`}
-                                                value={fullUrl}
-                                                size={56}
-                                                level="L"
-                                            />
-                                        </div>
-                                        <div style={{ flex: 1 }}>
+                                        <div className={styles.qrZone}>
+                                            <div className={styles.qrBg}>
+                                                <QRCodeSVG
+                                                    id={`qr-${link.shortCode}`}
+                                                    value={fullUrl}
+                                                    size={40}
+                                                    level="L"
+                                                />
+                                            </div>
                                             <button
                                                 onClick={() => downloadQr(`qr-${link.shortCode}`, link.shortCode)}
-                                                style={{ border: 'none', background: 'none', color: 'var(--primary-light)', fontSize: '0.75rem', fontWeight: 700, cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
+                                                style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: '4px' }}
                                             >
-                                                <Sparkles size={12} /> Get HQ QR Code
+                                                <Download size={14} /> Download QR
                                             </button>
                                         </div>
                                     </div>
 
-                                    <div className={styles.actions}>
+                                    <div className={styles.cardActions}>
                                         <button
                                             onClick={() => copyToClipboard(link.shortCode, link.id)}
-                                            className={styles.actionButton}
+                                            className={styles.actionBtn}
                                         >
-                                            {copiedId === link.id ? <><Check size={16} color="#22c55e" /> Copied</> : <><Copy size={16} /> Copy</>}
+                                            {copiedId === link.id ? <Check size={18} color="#22c55e" /> : <Copy size={18} />}
+                                            {copiedId === link.id ? 'Copied' : 'Copy'}
                                         </button>
-                                        <a href={fullUrl} target="_blank" className={styles.actionButton}>
-                                            <ExternalLink size={16} /> Open
+                                        <a href={fullUrl} target="_blank" className={styles.actionBtn}>
+                                            <ExternalLink size={18} /> Visit
                                         </a>
                                     </div>
-                                </div>
+                                </motion.div>
                             );
                         })}
                     </motion.div>
                 ) : (
                     <div className={styles.emptyState}>
-                        <div style={{ width: '4rem', height: '4rem', background: 'rgba(255,255,255,0.03)', borderRadius: '1rem', display: 'flex', alignItems: 'center', justifySelf: 'center', justifyContent: 'center', marginBottom: '1rem' }}>
-                            <Link2 size={32} className={styles.emptyIcon} />
-                        </div>
-                        <h3 style={{ fontSize: '1.5rem', fontWeight: 700 }}>No links generated yet</h3>
-                        <p style={{ color: '#94a3b8', maxWidth: '300px' }}>Your high-performance links will appear here once you create them.</p>
-                        <Link href="/" className={styles.createButton}>Create My First Link</Link>
+                        <TrendingUp size={48} style={{ opacity: 0.2, marginBottom: '1rem' }} />
+                        <h3>No links found</h3>
+                        <p>{searchQuery ? "Try adjusting your search terms" : "Start your journey by creating your first link"}</p>
+                        {!searchQuery && (
+                            <Link href="/" style={{ marginTop: '1rem', color: '#00f2ff', fontWeight: 700 }}>
+                                Create Link &rarr;
+                            </Link>
+                        )}
                     </div>
                 )}
             </div>
