@@ -16,6 +16,10 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "My URL Shortner - Professional URL Management",
   description: "The premium URL management platform for modern teams.",
+  icons: {
+    icon: '/favicon.ico',
+    apple: '/icon.png',
+  },
 };
 
 import { AuthProvider } from '@/context/AuthContext';
