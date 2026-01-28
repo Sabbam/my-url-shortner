@@ -30,7 +30,7 @@ export default function Home() {
     setShortUrl('');
 
     try {
-      const payload: any = { originalUrl: url };
+      const payload: any = { url: url };
       if (user?.id) payload.userId = user.id;
       if (customAlias && customAlias.trim()) {
         payload.customAlias = customAlias.trim();
