@@ -54,7 +54,7 @@ export default function Home() {
       const data = await res.json();
       const host = typeof window !== 'undefined' ? window.location.host : 's.myfervera.in';
       const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
-      setShortUrl(`${protocol}//${host}/${data.shortCode}`);
+      setShortUrl(`${protocol}//${host}/${data.code}`);
 
       // Reset inputs on success
       setUrl('');
@@ -198,6 +198,12 @@ export default function Home() {
                 </div>
 
                 <div className={styles.ticketBody}>
+                  <div className={styles.qrContainer} style={{ marginBottom: '1.5rem', display: 'flex', justifyContent: 'center' }}>
+                    <div style={{ background: 'white', padding: '10px', borderRadius: '12px' }}>
+                      <QRCodeSVG value={shortUrl} size={120} />
+                    </div>
+                  </div>
+
                   <a href={shortUrl} target="_blank" className={styles.shortLink}>
                     {shortUrl.replace(/^https?:\/\//, '')}
                   </a>
