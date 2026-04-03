@@ -7,13 +7,13 @@
   package = "@netlify/plugin-nextjs"
 
 [[redirects]]
-  from = "https://s.myfervera.in/*"
+  from = "https://my-url-shorten.netlify.app/*"
   to = "https://myurl.mannayuvatha.com/:splat"
   status = 301
   force = true
 
 [[redirects]]
-  from = "https://my-url-shorten.netlify.app/*"
+  from = "https://s.myfervera.in/*"
   to = "https://myurl.mannayuvatha.com/:splat"
   status = 301
   force = true
