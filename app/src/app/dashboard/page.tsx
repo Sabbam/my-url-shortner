@@ -51,7 +51,7 @@ export default function Dashboard() {
     }, [user, router]);
 
     const copyToClipboard = (shortCode: string, id: number) => {
-        const host = typeof window !== 'undefined' ? window.location.host : 's.myfervera.in';
+        const host = typeof window !== 'undefined' ? window.location.host : 'myurl.mannayuvatha.com';
         const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
         const fullUrl = `${protocol}//${host}/${shortCode}`;
 
@@ -84,7 +84,7 @@ export default function Dashboard() {
     };
 
     // Filter links based on search
-    const filteredLinks = links.filter(link =>
+    const filteredLinks = links.filter((link: LinkData) =>
         link.shortCode.toLowerCase().includes(searchQuery.toLowerCase()) ||
         link.originalUrl.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -155,8 +155,8 @@ export default function Dashboard() {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                     >
-                        {filteredLinks.map((link) => {
-                            const host = typeof window !== 'undefined' ? window.location.host : 's.myfervera.in';
+                        {filteredLinks.map((link: LinkData) => {
+                            const host = typeof window !== 'undefined' ? window.location.host : 'myurl.mannayuvatha.com';
                             const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
                             const fullUrl = `${protocol}//${host}/${link.shortCode}`;
 

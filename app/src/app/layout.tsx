@@ -14,8 +14,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "My URL Shortner - Professional URL Management",
-  description: "The premium URL management platform for modern teams.",
+  title: "Manna Shortener - Professional URL Management",
+  description: "The premium URL management platform for Manna Yuvatha and modern teams.",
   icons: {
     icon: '/favicon.ico',
     apple: '/icon.png',

@@ -52,7 +52,7 @@ export default function Home() {
       }
 
       const data = await res.json();
-      const host = typeof window !== 'undefined' ? window.location.host : 's.myfervera.in';
+      const host = typeof window !== 'undefined' ? window.location.host : 'myurl.mannayuvatha.com';
       const protocol = typeof window !== 'undefined' ? window.location.protocol : 'https:';
       setShortUrl(`${protocol}//${host}/${data.code}`);
 
@@ -123,7 +123,7 @@ export default function Home() {
                   placeholder="Paste a long URL to shorten..."
                   className={styles.mainInput}
                   value={url}
-                  onChange={(e) => setUrl(e.target.value)}
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUrl(e.target.value)}
                   required
                 />
 
@@ -166,7 +166,7 @@ export default function Home() {
                         placeholder="custom-alias-name"
                         className={styles.aliasInput}
                         value={customAlias}
-                        onChange={(e) => setCustomAlias(e.target.value)}
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setCustomAlias(e.target.value)}
                         pattern="[a-zA-Z0-9-_]+"
                         title="Alphanumeric characters, hyphens and underscores only"
                       />
