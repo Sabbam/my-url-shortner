@@ -96,4 +96,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ---
 
-Developed with ❤️ by **DeepMind Team** for the next generation of link management.
+Developed with ❤️ by **Sabbam Chandraneel (Manna Yuvatha)** for the next generation of link management.
