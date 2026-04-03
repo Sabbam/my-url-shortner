@@ -11,7 +11,7 @@ export default function Footer() {
                     <div className={styles.brandCol}>
                         <Link href="/" className={styles.logo}>
                             <Zap size={24} fill="currentColor" color="hsl(var(--primary-hsl))" />
-                            <span className="text-gradient">Manna Shortener</span>
+                            <span className="text-gradient">My URL Shortner</span>
                         </Link>
                         <p className={styles.tagline}>
                             Fast, secure, and branded URL shortening for elite performance. Transform your links into powerful assets.
@@ -46,7 +46,7 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.bottom}>
-                    <div>&copy; 2026 Manna Shortener. Developed and Managed by Manna Yuvatha.</div>
+                    <div>&copy; 2026 My URL Shortner. Developed and Managed by Manna Yuvatha.</div>
                     <div style={{ display: 'flex', gap: '1.5rem' }}>
                         <Link href="#" className={styles.footerLink}>Twitter</Link>
                         <Link href="#" className={styles.footerLink}>LinkedIn</Link>
