@@ -10,16 +10,9 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns(
-                    "https://*.mannayuvatha.com",
-                    "https://myurl.mannayuvatha.com",
-                    "https://*.netlify.app",
-                    "https://*.myfervera.in",
-                    "http://localhost:[*]",
-                    "https://my-url-shortner-production.up.railway.app"
-                )
+                .allowedOriginPatterns("*") // Catch-all wildcard for debugging
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
-                .allowedHeaders("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers")
+                .allowedHeaders("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Referer", "User-Agent")
                 .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
                 .allowCredentials(true)
                 .maxAge(3600);
