@@ -8,7 +8,7 @@ import styles from '../pricing-refined.module.css';
 import { useState } from 'react';
 
 export default function Pricing() {
-    const { user } = useAuth();
+    const { user, login } = useAuth();
     const router = useRouter();
     const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
@@ -44,8 +44,14 @@ export default function Pricing() {
                 description: `${planType} Subscription`,
                 image: '/icon.png',
                 handler: function (response: any) {
-                    toast.success('Payment Successful! Your plan will update shortly.');
-                    // The backend webhook will handle the plan update in real-time
+                    toast.success('Payment Successful! Your plan has been updated.');
+                    
+                    // Optimistically update the frontend state.
+                    // The backend webhook keeps the DB perfectly in sync.
+                    if (user) {
+                        login({ ...user, planType: planType });
+                    }
+                    
                     router.push('/dashboard');
                 },
                 prefill: {
