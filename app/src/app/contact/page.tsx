@@ -54,9 +54,8 @@ export default function Contact() {
                         </form>
                     </div>
 
-                    <div className={styles.infoGrid}>
-                        <ContactInfo icon={<Mail size={24} />} title="Email" value="sales@myslink.com" />
-                        <ContactInfo icon={<Phone size={24} />} title="Phone" value="+91 98765 43210" />
+                    <div className={styles.infoGrid} style={{ gridTemplateColumns: 'repeat(2, 1fr)' }}>
+                        <ContactInfo icon={<Mail size={24} />} title="Email" value="support@mannayuvatha.com" />
                         <ContactInfo icon={<MapPin size={24} />} title="Office" value="Bangalore, India" />
                     </div>
                 </div>
