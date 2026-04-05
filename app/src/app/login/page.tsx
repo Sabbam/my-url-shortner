@@ -77,7 +77,7 @@ function LoginForm() {
         }).then(() => {
             router.push('/dashboard');
         }).catch((err) => {
-            setLocalError(err.message === 'Failed to fetch' ? `Network Error: Could not connect to the backend at ${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}. Ensure the backend is running and CORS is enabled.` : err.message);
+            setLocalError(err.message === 'Failed to fetch' ? `Network Error: Could not connect to the backend at ${process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app"}. Ensure the backend is running and CORS is enabled.` : err.message);
         }).finally(() => {
             setLoading(false);
         });
