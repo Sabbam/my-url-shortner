@@ -10,15 +10,18 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins(
+                .allowedOriginPatterns(
+                    "https://*.mannayuvatha.com",
                     "https://myurl.mannayuvatha.com",
-                    "https://s.myfervera.in",
-                    "https://my-url-shorten.netlify.app",
-                    "http://localhost:3000",
-                    "http://localhost:8080"
+                    "https://*.netlify.app",
+                    "https://*.myfervera.in",
+                    "http://localhost:[*]",
+                    "https://my-url-shortner-production.up.railway.app"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
-                .allowedHeaders("*")
-                .allowCredentials(true);
+                .allowedHeaders("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers")
+                .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
+                .allowCredentials(true)
+                .maxAge(3600);
     }
 }
