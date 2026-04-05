@@ -89,6 +89,9 @@ export default function Dashboard() {
         link.originalUrl.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    const maxSlots = user?.planType === 'ELITE' ? 1000 : user?.planType === 'PRO' ? 100 : 50;
+    const planName = user?.planType === 'ELITE' ? 'ELITE BRAND' : user?.planType === 'PRO' ? 'PREMIUM PLUS' : 'BASIC FREE';
+
     return (
         <main style={{ minHeight: '100vh', paddingTop: '8rem', paddingBottom: '4rem' }}>
             <div className={styles.container}>
@@ -102,7 +105,7 @@ export default function Dashboard() {
                         </p>
                         <div className={styles.planBadge}>
                             <Sparkles size={14} />
-                            QUANTUM TIER
+                            {planName}
                         </div>
                     </div>
 
@@ -110,12 +113,12 @@ export default function Dashboard() {
                         <div className={styles.usageMeter}>
                             <div className={styles.meterHeader}>
                                 <span>Link Slots</span>
-                                <span>{links.length} / 50</span>
+                                <span>{links.length} / {maxSlots}</span>
                             </div>
                             <div className={styles.meterTrack}>
                                 <div
                                     className={styles.meterFill}
-                                    style={{ width: `${Math.min((links.length / 50) * 100, 100)}%` }}
+                                    style={{ width: `${Math.min((links.length / maxSlots) * 100, 100)}%` }}
                                 />
                             </div>
                         </div>
