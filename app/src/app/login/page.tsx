@@ -35,13 +35,21 @@ function LoginForm() {
         setLoading(true);
 
         const loginPromise = async () => {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/auth/login`, {
+            const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
+            const apiUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
+            
+            const res = await fetch(`${apiUrl}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
             });
 
             const data = await res.text();
+            
+            // Safety Check: If we get HTML instead of JSON, the URL is wrong
+            if (data.trim().startsWith('<!DOCTYPE') || data.trim().startsWith('<html')) {
+                throw new Error('Backend URL Misconfigured: The server returned an HTML error page instead of an API response.');
+            }
             if (!res.ok) {
                 let errorMsg = 'Login failed';
                 try {
