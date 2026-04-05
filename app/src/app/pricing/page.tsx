@@ -1,10 +1,72 @@
 'use client';
 
-import Link from 'next/link';
-import { Check, ArrowRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { Check, ArrowRight, Loader2 } from 'lucide-react';
+import toast from 'react-hot-toast';
+import { useAuth } from '@/context/AuthContext';
 import styles from '../pricing-refined.module.css';
+import { useState } from 'react';
 
 export default function Pricing() {
+    const { user } = useAuth();
+    const router = useRouter();
+    const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+
+    const handleSubscription = async (planType: string) => {
+        if (!user) {
+            toast.error('Please login to subscribe');
+            router.push('/login');
+            return;
+        }
+
+        if (user.planType === planType) {
+            toast.success('You are already on this plan!');
+            return;
+        }
+
+        setLoadingPlan(planType);
+        try {
+            // 1. Create subscription on backend
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/subscriptions/create`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: user.email, planType })
+            });
+
+            if (!response.ok) throw new Error('Failed to create subscription');
+            const { subscriptionId } = await response.json();
+
+            // 2. Open Razorpay Checkout
+            const options = {
+                key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID || 'rzp_live_SZqXibp4r8bckV',
+                subscription_id: subscriptionId,
+                name: 'My URL Shortner',
+                description: `${planType} Subscription`,
+                image: '/icon.png',
+                handler: function (response: any) {
+                    toast.success('Payment Successful! Your plan will update shortly.');
+                    // The backend webhook will handle the plan update in real-time
+                    router.push('/dashboard');
+                },
+                prefill: {
+                    email: user.email,
+                },
+                theme: {
+                    color: '#6366f1',
+                },
+            };
+
+            const rzp = new (window as any).Razorpay(options);
+            rzp.open();
+
+        } catch (error) {
+            console.error('Subscription error:', error);
+            toast.error('Could not initiate subscription. Please try again.');
+        } finally {
+            setLoadingPlan(null);
+        }
+    };
+
     return (
         <main className={styles.wrapper}>
             <div className={styles.glow} />
@@ -33,9 +95,13 @@ export default function Pricing() {
                             <FeatureItem text="Contains Ads" />
                             <FeatureItem text="Community Support" />
                         </ul>
-                        <Link href="/register" className={`${styles.btn} ${styles.btnGray}`}>
-                            Get Started
-                        </Link>
+                        <button 
+                            disabled={user?.planType === 'FREE'}
+                            onClick={() => router.push('/dashboard')}
+                            className={`${styles.btn} ${styles.btnGray}`}
+                        >
+                            {user?.planType === 'FREE' ? 'Current Plan' : 'Get Started'}
+                        </button>
                     </section>
 
                     {/* Pro Tier (Featured) */}
@@ -53,11 +119,16 @@ export default function Pricing() {
                             <FeatureItem text="Extra Dashboard Props" />
                             <FeatureItem text="Ad-Free Experience" />
                         </ul>
-                        <Link href="/register" className={`${styles.btn} ${styles.btnLight}`}>
+                        <button 
+                            onClick={() => handleSubscription('PRO')}
+                            disabled={loadingPlan === 'PRO'}
+                            className={`${styles.btn} ${styles.btnLight}`}
+                        >
                             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
-                                Start Free Trial <ArrowRight size={18} />
+                                {loadingPlan === 'PRO' ? <Loader2 className="animate-spin" /> : (user?.planType === 'PRO' ? 'Current Plan' : 'Upgrade Now')} 
+                                {user?.planType !== 'PRO' && !loadingPlan && <ArrowRight size={18} />}
                             </span>
-                        </Link>
+                        </button>
                     </section>
 
                     {/* Business Tier */}
@@ -74,9 +145,15 @@ export default function Pricing() {
                             <FeatureItem text="Priority 24/7 Support" />
                             <FeatureItem text="Full API Access" />
                         </ul>
-                        <Link href="/contact" className={`${styles.btn} ${styles.btnGray}`}>
-                            Contact Sales
-                        </Link>
+                        <button 
+                            onClick={() => handleSubscription('ELITE')}
+                            disabled={loadingPlan === 'ELITE'}
+                            className={`${styles.btn} ${styles.btnGray}`}
+                        >
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
+                                {loadingPlan === 'ELITE' ? <Loader2 className="animate-spin" /> : (user?.planType === 'ELITE' ? 'Current Plan' : 'Choose Elite')}
+                            </span>
+                        </button>
                     </section>
                 </div>
             </div>

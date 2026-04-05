@@ -18,6 +18,10 @@ public class User {
     private String planType; // "FREE", "PRO"
     private String registrationIp;
 
+    private String rzpSubscriptionId;
+    private String subscriptionStatus; // "active", "cancelled", "expired"
+    private Long currentPeriodEnd;
+
     public User() {
     }
 
@@ -66,5 +70,29 @@ public class User {
 
     public void setRegistrationIp(String registrationIp) {
         this.registrationIp = registrationIp;
+    }
+
+    public String getRzpSubscriptionId() {
+        return rzpSubscriptionId;
+    }
+
+    public void setRzpSubscriptionId(String rzpSubscriptionId) {
+        this.rzpSubscriptionId = rzpSubscriptionId;
+    }
+
+    public String getSubscriptionStatus() {
+        return subscriptionStatus;
+    }
+
+    public void setSubscriptionStatus(String subscriptionStatus) {
+        this.subscriptionStatus = subscriptionStatus;
+    }
+
+    public Long getCurrentPeriodEnd() {
+        return currentPeriodEnd;
+    }
+
+    public void setCurrentPeriodEnd(Long currentPeriodEnd) {
+        this.currentPeriodEnd = currentPeriodEnd;
     }
 }
