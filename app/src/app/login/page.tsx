@@ -77,15 +77,23 @@ function LoginForm() {
             success: 'Welcome back!',
             error: (err) => {
                 console.error('Login Fetch Error:', err);
+                const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
+                const displayUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
+                
                 if (err.message === 'Failed to fetch') {
-                    return 'Network Error: Backend is down or unreachable. Check Railway logs.';
+                    return `Network Error: DNS failure or server down at ${displayUrl}. Check Railway status.`;
                 }
                 return err.message;
             },
         }).then(() => {
             router.push('/dashboard');
         }).catch((err) => {
-            setLocalError(err.message === 'Failed to fetch' ? `Network Error: Could not connect to the backend at ${process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app"}. Ensure the backend is running and CORS is enabled.` : err.message);
+            const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
+            const displayUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
+            
+            setLocalError(err.message === 'Failed to fetch' 
+                ? `Network Error: Could not connect to the backend at ${displayUrl}. This is likely a DNS issue or the server is down. Ensure the backend is running and CORS is enabled for ${window.location.origin}.` 
+                : err.message);
         }).finally(() => {
             setLoading(false);
         });

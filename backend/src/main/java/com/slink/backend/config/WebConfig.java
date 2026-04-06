@@ -12,13 +12,11 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOriginPatterns(
                     "https://*.mannayuvatha.com",
-                    "https://myurl.mannayuvatha.com",
                     "https://*.netlify.app",
-                    "https://my-url-shortner-saas.up.railway.app",
-                    "*" // Keep catch-all for debugging temporarily
+                    "https://*.up.railway.app"
                 )
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD")
-                .allowedHeaders("Authorization", "Content-Type", "X-Requested-With", "Accept", "Origin", "Access-Control-Request-Method", "Access-Control-Request-Headers", "Referer", "User-Agent")
+                .allowedHeaders("*") // Allow all headers for maximum compatibility
                 .exposedHeaders("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials")
                 .allowCredentials(true)
                 .maxAge(3600);
