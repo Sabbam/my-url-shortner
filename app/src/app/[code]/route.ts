@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { getBaseApiUrl } from '@/lib/api-config';
+
 
 export async function GET(req: NextRequest, { params }: { params: Promise<{ code: string }> }) {
     const { code } = await params;
@@ -8,7 +10,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ code
     }
 
     try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/url/${code}`, {
+        const res = await fetch(`${getBaseApiUrl()}/api/url/${code}`, {
             cache: 'no-store'
         });
 

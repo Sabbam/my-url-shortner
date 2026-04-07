@@ -8,6 +8,8 @@ import { Link2, Copy, Check, Zap, Sparkles, ArrowRight, Share2, Globe, BarChart2
 import { QRCodeSVG } from 'qrcode.react';
 import styles from './home-quantum.module.css';
 import toast from 'react-hot-toast';
+import { getBaseApiUrl } from '@/lib/api-config';
+
 
 export default function Home() {
   const [url, setUrl] = useState('');
@@ -36,7 +38,7 @@ export default function Home() {
         payload.customAlias = customAlias.trim();
       }
 
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/shorten`, {
+      const res = await fetch(`${getBaseApiUrl()}/api/shorten`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),

@@ -8,6 +8,8 @@ import { QRCodeSVG } from 'qrcode.react';
 import styles from '../dashboard.module.css';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { getBaseApiUrl } from '@/lib/api-config';
+
 
 interface LinkData {
     id: number;
@@ -33,7 +35,7 @@ export default function Dashboard() {
 
         const fetchLinks = async () => {
             try {
-                const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || "http://localhost:8080"}/api/links?userId=${user.id}`);
+                const res = await fetch(`${getBaseApiUrl()}/api/links?userId=${user.id}`);
                 if (res.ok) {
                     const data = await res.json();
                     // Sort by newest first

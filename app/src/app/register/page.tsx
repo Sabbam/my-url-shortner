@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { Zap, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import styles from '../auth-refined.module.css';
+import { getBaseApiUrl } from '@/lib/api-config';
+
 
 export default function Register() {
     const [email, setEmail] = useState('');
@@ -29,10 +31,7 @@ export default function Register() {
         setLoading(true);
 
         const registerPromise = async () => {
-            const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
-            const apiUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
-            
-            const res = await fetch(`${apiUrl}/api/auth/register`, {
+            const res = await fetch(`${getBaseApiUrl()}/api/auth/register`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password, name: "New User" }),
@@ -62,8 +61,7 @@ export default function Register() {
             success: 'Registration successful!',
             error: (err) => {
                 console.error('Registration Fetch Error:', err);
-                const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
-                const displayUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
+                const displayUrl = getBaseApiUrl();
                 
                 if (err.message === 'Failed to fetch') {
                     return `Network Error: DNS failure or server down at ${displayUrl}. Check Railway status.`;
@@ -73,8 +71,7 @@ export default function Register() {
         }).then(() => {
             router.push('/login?registered=true');
         }).catch((err) => {
-            const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
-            const displayUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
+            const displayUrl = getBaseApiUrl();
             
             setLocalError(err.message === 'Failed to fetch' 
                 ? `Network Error: Could not connect to the backend at ${displayUrl}. This is likely a DNS issue or the server is down. Ensure the backend is running and CORS is enabled for ${window.location.origin}.` 

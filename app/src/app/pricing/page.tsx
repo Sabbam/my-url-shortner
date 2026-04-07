@@ -6,6 +6,8 @@ import toast from 'react-hot-toast';
 import { useAuth } from '@/context/AuthContext';
 import styles from '../pricing-refined.module.css';
 import { useState } from 'react';
+import { getBaseApiUrl } from '@/lib/api-config';
+
 
 export default function Pricing() {
     const { user, login } = useAuth();
@@ -27,7 +29,7 @@ export default function Pricing() {
         setLoadingPlan(planType);
         try {
             // 1. Create subscription on backend
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080'}/api/subscriptions/create`, {
+            const response = await fetch(`${getBaseApiUrl()}/api/subscriptions/create`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: user.email, planType })

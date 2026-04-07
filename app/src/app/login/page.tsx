@@ -7,6 +7,8 @@ import Link from 'next/link';
 import { Zap, Eye, EyeOff } from 'lucide-react';
 import toast from 'react-hot-toast';
 import styles from '../auth-refined.module.css';
+import { getBaseApiUrl } from '@/lib/api-config';
+
 
 function LoginForm() {
     const [email, setEmail] = useState('');
@@ -35,10 +37,7 @@ function LoginForm() {
         setLoading(true);
 
         const loginPromise = async () => {
-            const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
-            const apiUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
-            
-            const res = await fetch(`${apiUrl}/api/auth/login`, {
+            const res = await fetch(`${getBaseApiUrl()}/api/auth/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email, password }),
@@ -77,8 +76,7 @@ function LoginForm() {
             success: 'Welcome back!',
             error: (err) => {
                 console.error('Login Fetch Error:', err);
-                const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
-                const displayUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
+                const displayUrl = getBaseApiUrl();
                 
                 if (err.message === 'Failed to fetch') {
                     return `Network Error: DNS failure or server down at ${displayUrl}. Check Railway status.`;
@@ -88,8 +86,7 @@ function LoginForm() {
         }).then(() => {
             router.push('/dashboard');
         }).catch((err) => {
-            const rawUrl = process.env.NEXT_PUBLIC_API_URL || "https://my-url-shortner-saas.up.railway.app";
-            const displayUrl = rawUrl.startsWith('http') ? rawUrl : `https://${rawUrl}`;
+            const displayUrl = getBaseApiUrl();
             
             setLocalError(err.message === 'Failed to fetch' 
                 ? `Network Error: Could not connect to the backend at ${displayUrl}. This is likely a DNS issue or the server is down. Ensure the backend is running and CORS is enabled for ${window.location.origin}.` 
