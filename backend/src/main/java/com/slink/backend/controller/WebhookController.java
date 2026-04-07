@@ -15,6 +15,12 @@ public class WebhookController {
     @Value("${razorpay.webhook.secret}")
     private String webhookSecret;
 
+    @Value("${razorpay.plan.pro}")
+    private String proPlanId;
+
+    @Value("${razorpay.plan.elite}")
+    private String elitePlanId;
+
     public WebhookController(SubscriptionService subscriptionService) {
         this.subscriptionService = subscriptionService;
     }
@@ -30,20 +36,24 @@ public class WebhookController {
             JSONObject payloadJson = json.optJSONObject("payload");
 
             if (payloadJson != null) {
-                if ("subscription.charged".equals(event)) {
+                if ("subscription.charged".equals(event) || "subscription.activated".equals(event) || "subscription.authenticated".equals(event)) {
                     JSONObject subscription = payloadJson.optJSONObject("subscription");
                     if (subscription != null) {
-                        String subId = subscription.optString("entity") != null ? subscription.optJSONObject("entity").optString("id") : subscription.optString("id");
-                        // subscription entity might be nested depending on the event
-                        if (subId == null || subId.isEmpty()) {
-                            subId = subscription.optString("id");
+                        // Extract subscription details (handle potential nesting)
+                        JSONObject entity = subscription.optJSONObject("entity");
+                        JSONObject subData = (entity != null) ? entity : subscription;
+                        
+                        String subId = subData.optString("id");
+                        long currentPeriodEnd = subData.optLong("current_end");
+                        String planId = subData.optString("plan_id");
+                        
+                        // Robust mapping of planId to planType
+                        String planType = "FREE";
+                        if (planId.equals(proPlanId)) {
+                            planType = "PRO";
+                        } else if (planId.equals(elitePlanId)) {
+                            planType = "ELITE";
                         }
-                        
-                        long currentPeriodEnd = subscription.optLong("current_end");
-                        String planId = subscription.optString("plan_id");
-                        
-                        // Map planId back to planType if needed, or stick to what we know
-                        String planType = planId.contains("PRO") ? "PRO" : "ELITE";
 
                         subscriptionService.updateSubscriptionStatus(subId, "active", currentPeriodEnd, planType);
                     }

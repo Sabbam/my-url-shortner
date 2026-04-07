@@ -2,6 +2,7 @@ package com.slink.backend.controller;
 
 import com.razorpay.RazorpayException;
 import com.slink.backend.service.SubscriptionService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,15 +15,15 @@ public class SubscriptionController {
 
     private final SubscriptionService subscriptionService;
 
-    // Mapping of plan types to Razorpay Plan IDs
-    // Note: These should ideally be in application.properties
-    private final Map<String, String> planIdMap = new HashMap<>() {{
-        put("PRO", "plan_SZqdWHHyra0tHH"); // PREMIUM PLUS
-        put("ELITE", "plan_SZqddv7Z5mDCvk"); // ELITE BRAND
-    }};
+    private final Map<String, String> planIdMap = new HashMap<>();
 
-    public SubscriptionController(SubscriptionService subscriptionService) {
+    public SubscriptionController(
+            SubscriptionService subscriptionService,
+            @Value("${razorpay.plan.pro}") String proPlanId,
+            @Value("${razorpay.plan.elite}") String elitePlanId) {
         this.subscriptionService = subscriptionService;
+        planIdMap.put("PRO", proPlanId);
+        planIdMap.put("ELITE", elitePlanId);
     }
 
     @PostMapping("/create")
