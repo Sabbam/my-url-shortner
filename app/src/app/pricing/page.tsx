@@ -154,12 +154,12 @@ export default function Pricing() {
                             <FeatureItem text="Full API Access" />
                         </ul>
                         <button 
-                            onClick={() => handleSubscription('ELITE')}
-                            disabled={loadingPlan === 'ELITE'}
+                            disabled={true}
                             className={`${styles.btn} ${styles.btnGray}`}
+                            style={{ cursor: 'not-allowed', opacity: 0.7 }}
                         >
                             <span style={{ display: 'flex', alignItems: 'center', gap: '8px', justifyContent: 'center' }}>
-                                {loadingPlan === 'ELITE' ? <Loader2 className="animate-spin" /> : (user?.planType === 'ELITE' ? 'Current Plan' : 'Choose Elite')}
+                                Coming Soon
                             </span>
                         </button>
                     </section>
